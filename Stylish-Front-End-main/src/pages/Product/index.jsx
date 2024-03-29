@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import api from '../../utils/api';
-import ProductVariants from './ProductVariants';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import api from "../../utils/api";
+import ProductVariants from "./ProductVariants";
 
 const Wrapper = styled.div`
   max-width: 960px;
@@ -141,7 +141,7 @@ const StoryTitle = styled.div`
   }
 
   &::after {
-    content: '';
+    content: "";
     height: 1px;
     flex-grow: 1;
     background-color: #3f3a3a;
@@ -166,7 +166,6 @@ const StoryContent = styled.div`
   }
 `;
 
-
 //Add the recommendations of the product
 const Recommend = styled.div`
   margin: 50px 0 0;
@@ -187,11 +186,14 @@ const RecommendTitle = styled.div`
 
   @media screen and (max-width: 1279px) {
     font-size: 16px;
+    display: block;
     letter-spacing: 3.2px;
+    text-align: center;
+    color: black;
   }
 
   &::after {
-    content: '';
+    content: "";
     height: 1px;
     flex-grow: 1;
     background-color: #3f3a3a;
@@ -216,15 +218,14 @@ const RecommendContent = styled.div`
   }
 `;
 
-
 const RecommendMainImage = styled.img`
   width: 202px;
 
   @media screen and (max-width: 1279px) {
     width: 100%;
+    padding-right: 10px;
   }
 `;
-
 
 const RecommendProductTitle = styled.div`
   line-height: 38px;
@@ -234,12 +235,11 @@ const RecommendProductTitle = styled.div`
 
   @media screen and (max-width: 1279px) {
     line-height: 24px;
-    font-size: 20px;
-    letter-spacing: 4px;
+    font-size: 12px;
+    letter-spacing: 0px;
+    text-align: center;
   }
 `;
-
-
 
 const RecommendID = styled.div`
   line-height: 1px;
@@ -249,42 +249,37 @@ const RecommendID = styled.div`
   color: #bababa;
 
   @media screen and (max-width: 1279px) {
-    line-height: 19px;
-    margin-top: 10px;
-    font-size: 16px;
-    letter-spacing: 3.2px;
+    line-height: 15px;
+    margin-top: 5px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-align: center;
   }
 `;
-
-
 
 const RecommendPrice = styled.div`
   line-height: 1px;
   margin-top: 40px;
   font-size: 20px;
-  color: #3f3a3a;
+  color: red;
   padding-bottom: 20px;
 
-
   @media screen and (max-width: 1279px) {
-    line-height: 24px;
-    margin-top: 20px;
-    font-size: 20px;
-    padding-bottom: 10px;
+    line-height: 15px;
+    margin-top: 5px;
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 5px;
   }
 `;
 
-
 const RecommendSection = styled.div`
-margin-top: 20px;
-display: flex;
-justify-content: space-between;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-
-const Recommendblock = styled.div`
-
-`;
+const Recommendblock = styled.div``;
 
 //................................................................
 
@@ -344,36 +339,35 @@ function Product() {
         <RecommendTitle>推薦商品</RecommendTitle>
         <RecommendSection>
           <Recommendblock>
-        <RecommendMainImage src={product.main_image} />
-          <RecommendProductTitle>{product.title}</RecommendProductTitle>
-          <RecommendID>{product.id}</RecommendID>
-          <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
-          
-          <Recommendblock>
-        <RecommendMainImage src={product.main_image} />
-          <RecommendProductTitle>{product.title}</RecommendProductTitle>
-          <RecommendID>{product.id}</RecommendID>
-          <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
-          
-          <Recommendblock>
-        <RecommendMainImage src={product.main_image} />
-          <RecommendProductTitle>{product.title}</RecommendProductTitle>
-          <RecommendID>{product.id}</RecommendID>
-          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+            <RecommendMainImage src={product.main_image} />
+            <RecommendProductTitle>{product.title}</RecommendProductTitle>
+            <RecommendID>{product.id}</RecommendID>
+            <RecommendPrice>TWD.{product.price}</RecommendPrice>
           </Recommendblock>
 
           <Recommendblock>
-        <RecommendMainImage src={product.main_image} />
-          <RecommendProductTitle>{product.title}</RecommendProductTitle>
-          <RecommendID>{product.id}</RecommendID>
-          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+            <RecommendMainImage src={product.main_image} />
+            <RecommendProductTitle>{product.title}</RecommendProductTitle>
+            <RecommendID>{product.id}</RecommendID>
+            <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+
+          <Recommendblock>
+            <RecommendMainImage src={product.main_image} />
+            <RecommendProductTitle>{product.title}</RecommendProductTitle>
+            <RecommendID>{product.id}</RecommendID>
+            <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+
+          <Recommendblock>
+            <RecommendMainImage src={product.main_image} />
+            <RecommendProductTitle>{product.title}</RecommendProductTitle>
+            <RecommendID>{product.id}</RecommendID>
+            <RecommendPrice>TWD.{product.price}</RecommendPrice>
           </Recommendblock>
         </RecommendSection>
       </Recommend>
 
-      
       <Story>
         <StoryTitle>細部說明</StoryTitle>
         <StoryContent>{product.story}</StoryContent>

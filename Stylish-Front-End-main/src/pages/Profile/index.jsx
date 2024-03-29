@@ -7,6 +7,9 @@ import { AuthContext } from "../../context/authContext";
 import Icon from "../../components/Profile/Icon";
 import { Link } from "react-router-dom";
 
+// icon
+import { FaAddressCard } from "react-icons/fa";
+
 const Wrapper = styled.div`
     padding: 60px 20px;
     display: flex;
@@ -32,6 +35,16 @@ const Content = styled.div`
 
 const Container = styled.div`
     display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 1rem;
+    gap: 1rem;
+`;
+
+const Button = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: black;
 `;
 
 const LogoutButton = styled.button`
@@ -60,7 +73,36 @@ function Profile() {
                         <Title>我的訂單</Title>
                         <Container>
                             <Link to="/history">
-                                <Icon></Icon>
+                                <Button>
+                                    <Icon>
+                                        <FaAddressCard />
+                                    </Icon>
+                                    待評價
+                                </Button>
+                            </Link>
+                            <Link to="/history">
+                                <Button>
+                                    <Icon>
+                                        <FaAddressCard />
+                                    </Icon>
+                                    待評價
+                                </Button>
+                            </Link>
+                            <Link to="/history">
+                                <Button>
+                                    <Icon>
+                                        <FaAddressCard />
+                                    </Icon>
+                                    待評價
+                                </Button>
+                            </Link>
+                            <Link to="/history">
+                                <Button>
+                                    <Icon>
+                                        <FaAddressCard />
+                                    </Icon>
+                                    待評價
+                                </Button>
                             </Link>
                         </Container>
                     </Content>

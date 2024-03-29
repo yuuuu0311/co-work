@@ -123,6 +123,13 @@ function Products() {
     });
     useInfiniteScroll(loadMoreProducts);
 
+    // sort
+    const sortedArray = products.slice().sort((a, b) => {
+        return a.price - b.price;
+    });
+
+    console.log(sortedArray);
+
     return (
         <Wrapper>
             {products.map(({ id, main_image, colors, title, price }) => (

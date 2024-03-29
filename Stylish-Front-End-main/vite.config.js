@@ -7,7 +7,7 @@ export default defineConfig(() => {
     return {
         plugins: [react(), mkcert()],
         server: {
-            https: true, // 需要开启https服务
+            https: true,
         },
     };
 });

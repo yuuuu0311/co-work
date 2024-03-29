@@ -3,6 +3,10 @@ import styled from "styled-components";
 
 const WarpStars = styled.div`
   --size: ${(props) => props.$size}px;
+  --space: ${(props) => props.$space}px;
+
+  display: flex;
+  gap: var(--space);
   .star {
     width: var(--size);
     height: var(--size);
@@ -10,9 +14,9 @@ const WarpStars = styled.div`
   }
 `;
 
-const Stars = ({ size, rate }) => {
+const Stars = ({ size, rate, space }) => {
   return (
-    <WarpStars $size={size}>
+    <WarpStars $size={size} $space={space}>
       {Array(rate)
         .fill(null)
         .map((_, index) => {

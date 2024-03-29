@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../../utils/api";
 import ProductVariants from "./ProductVariants";
+import Stars from "../../components/Stars";
 
 const Wrapper = styled.div`
   max-width: 960px;
@@ -281,6 +282,20 @@ const RecommendSection = styled.div`
 
 const Recommendblock = styled.div``;
 
+const CommentStar = styled.div`
+  margin-top: 20px;
+`;
+
+const CommentUser = styled.div`
+  display: none;
+  @media screen and (max-width: 1279px) {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+  }
+`;
+
 //................................................................
 
 const Images = styled.div`
@@ -333,6 +348,12 @@ function Product() {
         <Description>{product.description}</Description>
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
+        <CommentStar>
+          <CommentUser>
+            <p>使用者A</p>
+          </CommentUser>
+          <Stars size={40} rate={4} space={8} />
+        </CommentStar>
       </Details>
 
       <Recommend>

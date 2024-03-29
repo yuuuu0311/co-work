@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { AuthContext } from "../../context/authContext";
 
 // component
-import Icon from "../../components/Profile/Icon";
-import { Link } from "react-router-dom";
+import Button from "../../components/Profile/Button";
 
 // icon
-import { FaAddressCard } from "react-icons/fa";
+import { FaAddressCard, FaBitcoin, FaBiking, FaBomb } from "react-icons/fa";
 
 const Wrapper = styled.div`
     padding: 60px 20px;
@@ -40,13 +39,6 @@ const Container = styled.div`
     gap: 1rem;
 `;
 
-const Button = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: black;
-`;
-
 const LogoutButton = styled.button`
     margin-top: 24px;
 `;
@@ -54,6 +46,8 @@ const LogoutButton = styled.button`
 const Loading = styled(ReactLoading)`
     margin-top: 50px;
 `;
+
+console.log(FaBitcoin);
 
 function Profile() {
     const { user, isLogin, login, logout, loading } = useContext(AuthContext);
@@ -72,38 +66,18 @@ function Profile() {
                     <Content>
                         <Title>我的訂單</Title>
                         <Container>
-                            <Link to="/history">
-                                <Button>
-                                    <Icon>
-                                        <FaAddressCard />
-                                    </Icon>
-                                    待評價
-                                </Button>
-                            </Link>
-                            <Link to="/history">
-                                <Button>
-                                    <Icon>
-                                        <FaAddressCard />
-                                    </Icon>
-                                    待評價
-                                </Button>
-                            </Link>
-                            <Link to="/history">
-                                <Button>
-                                    <Icon>
-                                        <FaAddressCard />
-                                    </Icon>
-                                    待評價
-                                </Button>
-                            </Link>
-                            <Link to="/history">
-                                <Button>
-                                    <Icon>
-                                        <FaAddressCard />
-                                    </Icon>
-                                    待評價
-                                </Button>
-                            </Link>
+                            <Button path={"/history"} icon={FaBitcoin}>
+                                待付款
+                            </Button>
+                            <Button path={"/history"} icon={FaBiking}>
+                                待出貨
+                            </Button>
+                            <Button path={"/history"} icon={FaAddressCard}>
+                                待評價
+                            </Button>
+                            <Button path={"/history"} icon={FaBomb}>
+                                待簽收
+                            </Button>
                         </Container>
                     </Content>
                 </>

@@ -35,8 +35,8 @@ const Content = styled.div`
 const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    padding: 1rem;
-    gap: 1rem;
+    padding: 2rem 1rem;
+    gap: 3rem;
 `;
 
 const LogoutButton = styled.button`

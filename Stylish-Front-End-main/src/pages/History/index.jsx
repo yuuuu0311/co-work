@@ -1,193 +1,170 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
 import styled from "styled-components";
 // import api from "../../utils/api";
 // import ProductVariants from "./ProductVariants";
 
 const Wrapper = styled.div`
     max-width: 960px;
-    margin: 0 auto;
+    margin: 2rem auto;
     padding: 65px 0 49px;
     display: flex;
     flex-wrap: wrap;
 
     @media screen and (max-width: 1279px) {
         padding: 0 0 32px;
+        margin: 1rem auto;
     }
 `;
 
-// const MainImage = styled.img`
-//     width: 560px;
+const Title = styled.h3`
+    font-size: 2rem;
+    padding: 1.25rem 0;
+    width: 100%;
+    border-bottom: 1px solid #454545;
 
-//     @media screen and (max-width: 1279px) {
-//         width: 100%;
-//     }
-// `;
+    @media screen and (max-width: 1279px) {
+        font-size: 1.5rem;
+        padding: 1.25rem 0rem;
+        margin: 0 0.5rem;
+        width: 100%;
+        border-bottom: 1px solid #454545;
+    }
+`;
 
-// const Details = styled.div`
-//     margin-left: 42px;
-//     flex-grow: 1;
+const OrderList = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin: 2rem auto;
+    @media screen and (max-width: 1279px) {
+        margin: 2rem 1rem;
+    }
+`;
 
-//     @media screen and (max-width: 1279px) {
-//         margin: 17px 24px 0;
-//     }
-// `;
+const Order = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-// const Title = styled.div`
-//     line-height: 38px;
-//     font-size: 32px;
-//     letter-spacing: 6.4px;
-//     color: #3f3a3a;
+    border: 1px solid gray;
+    padding: 1rem;
+`;
+const InfoWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #454545;
+    border-bottom: 1px solid gray;
+    padding: 1rem 0;
+`;
 
-//     @media screen and (max-width: 1279px) {
-//         line-height: 24px;
-//         font-size: 20px;
-//         letter-spacing: 4px;
-//     }
-// `;
+const ProductWrap = styled.div`
+    display: flex;
+    gap: 1rem;
+`;
 
-// const ID = styled.div`
-//     line-height: 24px;
-//     margin-top: 16px;
-//     font-size: 20px;
-//     letter-spacing: 4px;
-//     color: #bababa;
+const ProductImg = styled.div`
+    max-width: 30%;
+    img {
+        width: 100%;
+        height: auto;
+    }
+`;
 
-//     @media screen and (max-width: 1279px) {
-//         line-height: 19px;
-//         margin-top: 10px;
-//         font-size: 16px;
-//         letter-spacing: 3.2px;
-//     }
-// `;
+const ProductInfoWrap = styled.h3`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`;
 
-// const Price = styled.div`
-//     line-height: 36px;
-//     margin-top: 40px;
-//     font-size: 30px;
-//     color: #3f3a3a;
-//     padding-bottom: 20px;
-//     border-bottom: 1px solid #3f3a3a;
+const ProductTitle = styled.h3`
+    color: #454545;
+`;
 
-//     @media screen and (max-width: 1279px) {
-//         line-height: 24px;
-//         margin-top: 20px;
-//         font-size: 20px;
-//         padding-bottom: 10px;
-//     }
-// `;
+const ProductInfo = styled.h3`
+    color: #454545;
+`;
 
-// const Detail = styled.div`
-//     line-height: 30px;
-//     font-size: 20px;
-//     color: #3f3a3a;
-
-//     @media screen and (max-width: 1279px) {
-//         line-height: 24px;
-//         font-size: 14px;
-//     }
-// `;
-
-// const Note = styled(Detail)`
-//     margin-top: 40px;
-
-//     @media screen and (max-width: 1279px) {
-//         margin-top: 28px;
-//     }
-// `;
-
-// const Texture = styled(Detail)`
-//     margin-top: 30px;
-
-//     @media screen and (max-width: 1279px) {
-//         margin-top: 24px;
-//     }
-// `;
-
-// const Description = styled(Detail)`
-//     white-space: pre;
-// `;
-
-// const Place = styled(Detail)`
-//     ${Description} + & {
-//         margin-top: 30px;
-
-//         @media screen and (max-width: 1279px) {
-//             margin-top: 24px;
-//         }
-//     }
-// `;
-
-// const Story = styled.div`
-//     margin: 50px 0 0;
-//     width: 100%;
-
-//     @media screen and (max-width: 1279px) {
-//         margin: 28px 24px 0;
-//     }
-// `;
-
-// const StoryTitle = styled.div`
-//     line-height: 30px;
-//     font-size: 20px;
-//     letter-spacing: 4px;
-//     color: #8b572a;
-//     display: flex;
-//     align-items: center;
-
-//     @media screen and (max-width: 1279px) {
-//         font-size: 16px;
-//         letter-spacing: 3.2px;
-//     }
-
-//     &::after {
-//         content: "";
-//         height: 1px;
-//         flex-grow: 1;
-//         background-color: #3f3a3a;
-//         margin-left: 64px;
-
-//         @media screen and (max-width: 1279px) {
-//             margin-left: 35px;
-//         }
-//     }
-// `;
-
-// const StoryContent = styled.div`
-//     line-height: 30px;
-//     margin-top: 28px;
-//     font-size: 20px;
-//     color: #3f3a3a;
-
-//     @media screen and (max-width: 1279px) {
-//         line-height: 25px;
-//         margin-top: 12px;
-//         font-size: 14px;
-//     }
-// `;
-
-// const Images = styled.div`
-//     margin: 30px 0 0;
-
-//     @media screen and (max-width: 1279px) {
-//         margin: 20px 24px 0;
-//         width: 100%;
-//     }
-// `;
-
-// const Image = styled.img`
-//     @media screen and (max-width: 1279px) {
-//         width: 100%;
-//     }
-
-//     & + & {
-//         margin-top: 30px;
-
-//         @media screen and (max-width: 1279px) {
-//             margin-top: 20px;
-//         }
-//     }
-// `;
+// markData
+const markData = {
+    orderList: [
+        {
+            id: 100000001,
+            date: 1710087463000,
+            list: [
+                {
+                    id: 201807201824,
+                    name: "前開衩扭結洋裝", //應改成title
+                    price: 799,
+                    main_image:
+                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+                    color: {
+                        name: "白色",
+                        code: "FFFFFF",
+                    },
+                    size: "M",
+                    qty: 10,
+                    star: 4,
+                },
+                {
+                    id: 201807201824,
+                    name: "前開衩扭結洋裝", //應改成title
+                    price: 799,
+                    main_image:
+                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+                    color: {
+                        name: "白色",
+                        code: "FFFFFF",
+                    },
+                    size: "M",
+                    qty: 10,
+                    star: 4,
+                },
+                // ...
+            ],
+            total: 99999,
+        },
+        {
+            id: 100000001,
+            date: 1710087463000,
+            list: [
+                {
+                    id: 201807201824,
+                    name: "前開衩扭結洋裝", //應改成title
+                    price: 799,
+                    main_image:
+                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+                    color: {
+                        name: "白色",
+                        code: "FFFFFF",
+                    },
+                    size: "M",
+                    qty: 10,
+                    star: 4,
+                },
+                {
+                    id: 201807201824,
+                    name: "前開衩扭結洋裝", //應改成title
+                    price: 799,
+                    main_image:
+                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+                    color: {
+                        name: "白色",
+                        code: "FFFFFF",
+                    },
+                    size: "M",
+                    qty: 10,
+                    star: 4,
+                },
+                // ...
+            ],
+            total: 99999,
+        },
+        // ...
+    ],
+};
 
 function Product() {
     // const [product, setProduct] = useState();
@@ -203,7 +180,54 @@ function Product() {
 
     // if (!product) return null;
 
-    return <Wrapper>歷史訂單</Wrapper>;
+    return (
+        <Wrapper>
+            <Title>歷史訂單</Title>
+            <OrderList>
+                {markData.orderList.map((order, index) => {
+                    const { id, date, list: productList } = order;
+
+                    return (
+                        <Order key={order.id}>
+                            <InfoWrap>
+                                <p>訂單編號：{id}</p>
+                                <p>
+                                    訂單時間：
+                                    {new Date(date).toDateString()}
+                                </p>
+                            </InfoWrap>
+                            {productList.map((product) => {
+                                return (
+                                    <ProductWrap key={product.id}>
+                                        <ProductImg>
+                                            <img
+                                                src={product.main_image}
+                                                alt=""
+                                            />
+                                        </ProductImg>
+                                        <ProductInfoWrap>
+                                            <ProductTitle>
+                                                {product.name}
+                                            </ProductTitle>
+                                            <ProductInfo>
+                                                {product.id}
+                                            </ProductInfo>
+                                            <ProductInfo>
+                                                顏色｜{product.color.name}
+                                            </ProductInfo>
+                                            <ProductInfo>
+                                                尺寸｜{product.size}
+                                            </ProductInfo>
+                                        </ProductInfoWrap>
+                                    </ProductWrap>
+                                );
+                            })}
+                        </Order>
+                    );
+                })}
+            </OrderList>
+        </Wrapper>
+    );
 }
 
 export default Product;

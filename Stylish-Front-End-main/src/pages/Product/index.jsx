@@ -166,6 +166,128 @@ const StoryContent = styled.div`
   }
 `;
 
+
+//Add the recommendations of the product
+const Recommend = styled.div`
+  margin: 50px 0 0;
+  width: 100%;
+
+  @media screen and (max-width: 1279px) {
+    margin: 28px 24px 0;
+  }
+`;
+
+const RecommendTitle = styled.div`
+  line-height: 30px;
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #8b572a;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1279px) {
+    font-size: 16px;
+    letter-spacing: 3.2px;
+  }
+
+  &::after {
+    content: '';
+    height: 1px;
+    flex-grow: 1;
+    background-color: #3f3a3a;
+    margin-left: 64px;
+
+    @media screen and (max-width: 1279px) {
+      margin-left: 35px;
+    }
+  }
+`;
+
+const RecommendContent = styled.div`
+  line-height: 30px;
+  margin-top: 28px;
+  font-size: 20px;
+  color: #3f3a3a;
+
+  @media screen and (max-width: 1279px) {
+    line-height: 25px;
+    margin-top: 12px;
+    font-size: 14px;
+  }
+`;
+
+
+const RecommendMainImage = styled.img`
+  width: 202px;
+
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
+`;
+
+
+const RecommendProductTitle = styled.div`
+  line-height: 38px;
+  font-size: 24px;
+  letter-spacing: 6.4px;
+  color: #3f3a3a;
+
+  @media screen and (max-width: 1279px) {
+    line-height: 24px;
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+`;
+
+
+
+const RecommendID = styled.div`
+  line-height: 1px;
+  margin-top: 16px;
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: #bababa;
+
+  @media screen and (max-width: 1279px) {
+    line-height: 19px;
+    margin-top: 10px;
+    font-size: 16px;
+    letter-spacing: 3.2px;
+  }
+`;
+
+
+
+const RecommendPrice = styled.div`
+  line-height: 1px;
+  margin-top: 40px;
+  font-size: 20px;
+  color: #3f3a3a;
+  padding-bottom: 20px;
+
+
+  @media screen and (max-width: 1279px) {
+    line-height: 24px;
+    margin-top: 20px;
+    font-size: 20px;
+    padding-bottom: 10px;
+  }
+`;
+
+
+const RecommendSection = styled.div`
+margin-top: 20px;
+display: flex;
+justify-content: space-between;
+`;
+
+
+const Recommendblock = styled.div`
+
+`;
+
+//................................................................
+
 const Images = styled.div`
   margin: 30px 0 0;
 
@@ -217,6 +339,41 @@ function Product() {
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
       </Details>
+
+      <Recommend>
+        <RecommendTitle>推薦商品</RecommendTitle>
+        <RecommendSection>
+          <Recommendblock>
+        <RecommendMainImage src={product.main_image} />
+          <RecommendProductTitle>{product.title}</RecommendProductTitle>
+          <RecommendID>{product.id}</RecommendID>
+          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+          
+          <Recommendblock>
+        <RecommendMainImage src={product.main_image} />
+          <RecommendProductTitle>{product.title}</RecommendProductTitle>
+          <RecommendID>{product.id}</RecommendID>
+          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+          
+          <Recommendblock>
+        <RecommendMainImage src={product.main_image} />
+          <RecommendProductTitle>{product.title}</RecommendProductTitle>
+          <RecommendID>{product.id}</RecommendID>
+          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+
+          <Recommendblock>
+        <RecommendMainImage src={product.main_image} />
+          <RecommendProductTitle>{product.title}</RecommendProductTitle>
+          <RecommendID>{product.id}</RecommendID>
+          <RecommendPrice>TWD.{product.price}</RecommendPrice>
+          </Recommendblock>
+        </RecommendSection>
+      </Recommend>
+
+      
       <Story>
         <StoryTitle>細部說明</StoryTitle>
         <StoryContent>{product.story}</StoryContent>

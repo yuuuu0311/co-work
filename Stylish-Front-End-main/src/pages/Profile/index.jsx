@@ -1,66 +1,79 @@
-import { useContext } from 'react';
-import ReactLoading from 'react-loading';
-import styled from 'styled-components';
-import { AuthContext } from '../../context/authContext';
+import { useContext } from "react";
+import ReactLoading from "react-loading";
+import styled from "styled-components";
+import { AuthContext } from "../../context/authContext";
+
+// component
+import Icon from "../../components/Profile/Icon";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
-  padding: 60px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 `;
 
 const Title = styled.div`
-  padding-bottom: 16px;
-  border-bottom: 1px solid #979797;
-  font-size: 24px;
-  font-weight: bold;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #979797;
+    font-size: 24px;
+    font-weight: bold;
 `;
 
 const Photo = styled.img`
-  margin-top: 24px;
+    margin-top: 24px;
 `;
 
 const Content = styled.div`
-  margin-top: 24px;
+    margin-top: 24px;
+`;
+
+const Container = styled.div`
+    display: grid;
 `;
 
 const LogoutButton = styled.button`
-  margin-top: 24px;
+    margin-top: 24px;
 `;
 
 const Loading = styled(ReactLoading)`
-  margin-top: 50px;
+    margin-top: 50px;
 `;
 
 function Profile() {
-  const { user, isLogin, login, logout, loading } = useContext(AuthContext);
+    const { user, isLogin, login, logout, loading } = useContext(AuthContext);
 
-  const renderContent = () => {
-    if (loading) return <Loading type="spinningBubbles" color="#313538" />;
-    if (isLogin) return (
-      <>
-        <Photo src={user.picture} />
-        <Content>{user.name}</Content>
-        <Content>{user.email}</Content>
-        <LogoutButton
-          onClick={logout}
-        >
-          登出
-        </LogoutButton>
-      </>
-    );
+    const renderContent = () => {
+        if (loading) return <Loading type="spinningBubbles" color="#313538" />;
+        if (isLogin)
+            return (
+                <>
+                    <Photo src={user.picture} />
+
+                    <Content>{user.name}</Content>
+                    <Content>{user.email}</Content>
+                    <LogoutButton onClick={logout}>登出</LogoutButton>
+
+                    <Content>
+                        <Title>我的訂單</Title>
+                        <Container>
+                            <Link to="/history">
+                                <Icon></Icon>
+                            </Link>
+                        </Container>
+                    </Content>
+                </>
+            );
+        return <LogoutButton onClick={login}>登入</LogoutButton>;
+    };
     return (
-      <LogoutButton onClick={login}>登入</LogoutButton>
+        <Wrapper>
+            <Title>會員基本資訊</Title>
+            {renderContent()}
+        </Wrapper>
     );
-  }
-  return (
-    <Wrapper>
-      <Title>會員基本資訊</Title>
-      {renderContent()}
-    </Wrapper>
-  );
 }
 
 export default Profile;

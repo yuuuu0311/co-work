@@ -57,7 +57,7 @@ const InfoWrap = styled.div`
     gap: 1rem;
     color: #454545;
     border-bottom: 1px solid gray;
-    padding: 1rem 0;
+    padding: 0rem 0 1rem;
 `;
 
 const ProductWrap = styled.div`

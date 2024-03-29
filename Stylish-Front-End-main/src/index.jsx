@@ -7,6 +7,8 @@ import Product from "./pages/Product";
 import Profile from "./pages/Profile";
 import ThankYou from "./pages/ThankYou";
 
+import { initializeApp } from "firebase/app";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const firebaseConfig = {

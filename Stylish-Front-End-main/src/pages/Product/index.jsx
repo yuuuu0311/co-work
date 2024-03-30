@@ -401,6 +401,9 @@ function Product() {
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
+        <CommentStar>
+          <Stars size={30} rate={4} space={8} />
+        </CommentStar>
         <Price>TWD.{product.price}</Price>
         <ProductVariants product={product} />
         <Note>{product.note}</Note>
@@ -408,9 +411,7 @@ function Product() {
         <Description>{product.description}</Description>
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
-        <CommentStar>
-          <Stars size={30} rate={4} space={8} />
-        </CommentStar>
+
       </Details>
 
       <Story>

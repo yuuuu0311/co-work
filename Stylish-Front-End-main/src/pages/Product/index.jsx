@@ -187,10 +187,7 @@ const RecommendTitle = styled.div`
 
   @media screen and (max-width: 1279px) {
     font-size: 16px;
-    display: block;
     letter-spacing: 3.2px;
-    text-align: center;
-    color: black;
   }
 
   &::after {
@@ -230,8 +227,8 @@ const RecommendMainImage = styled.img`
 
 const RecommendProductTitle = styled.div`
   line-height: 38px;
-  font-size: 24px;
-  letter-spacing: 6.4px;
+  font-size: 22px;
+  letter-spacing: 2px;
   color: #3f3a3a;
 
   @media screen and (max-width: 1279px) {
@@ -287,33 +284,28 @@ const CommentStar = styled.div`
 `;
 
 const CommentUser = styled.div`
-  display: none;
+
   @media screen and (max-width: 1279px) {
-    display: block;
     font-size: 25px;
     margin-bottom: 15px;
     margin-top: 20px;
   }
 `;
 
-
 const ClientsCommentsSection = styled.div`
-display: flex;
+  display: flex;
 `;
 
-
 const ClientComent = styled.div`
-margin-top: 2rem;
-width: 50%;
+  margin-top: 2rem;
 
+  width: 50%;
 `;
 
 const ClientName = styled.div`
-font-size: 30px;
-margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
 `;
-
-
 
 //................................................................
 
@@ -339,6 +331,55 @@ const Image = styled.img`
     }
   }
 `;
+
+const recommendData = {
+  data: {
+    // 原先商品之detail...，以下為需要新增的項目
+    stars: 4,
+    comment: [
+      {
+        name: "王小姐",
+        star: 3,
+      },
+      {
+        name: "陳先生",
+        star: 5,
+      },
+      // ...
+    ],
+    recommend: [
+      {
+        id: 201807201824,
+        title: "前開衩扭結洋裝",
+        price: 799,
+        main_image:
+          "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+      },
+      {
+        id: 201807201824,
+        title: "時尚輕鬆休閒西裝",
+        price: 2399,
+        main_image:
+          "https://api.appworks-school.tw/assets/201807242216/main.jpg",
+      },
+      {
+        id: 201807201824,
+        title: "經典牛仔帽",
+        price: 799,
+        main_image:
+          "https://api.appworks-school.tw/assets/201807242230/main.jpg",
+      },
+      {
+        id: 201807201824,
+        title: "柔軟氣質羊毛圍巾",
+        price: 1799,
+        main_image:
+          "https://api.appworks-school.tw/assets/201807242234/main.jpg",
+      },
+      // ...
+    ],
+  },
+};
 
 function Product() {
   const [product, setProduct] = useState();
@@ -368,56 +409,39 @@ function Product() {
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
         <CommentStar>
-
-          <Stars size={40} rate={4} space={8} />
+          <Stars size={30} rate={4} space={8} />
         </CommentStar>
       </Details>
 
       <Story>
         <StoryTitle>顧客評價</StoryTitle>
-  <ClientsCommentsSection>
-    <ClientComent>
-      <ClientName>王小姐</ClientName>
-      <Stars size={25} rate={5} space={6} />
-    </ClientComent>
-    <ClientComent>
-      <ClientName>陳先生</ClientName>
-      <Stars size={25} rate={3} space={6} />
-    </ClientComent>
-  </ClientsCommentsSection>
+        <ClientsCommentsSection>
+          {recommendData.data.comment.map((item) => {
+            return (
+              <ClientComent>
+                <ClientName>{item.name}</ClientName>
+                <CommentUser>
+                  <Stars size={25} rate={item.star} space={6} />
+                </CommentUser>
+              </ClientComent>
+            );
+          })}
+        </ClientsCommentsSection>
       </Story>
 
-
       <Recommend>
-        <RecommendTitle>推薦商品</RecommendTitle>
+        <RecommendTitle>你可能會喜歡</RecommendTitle>
         <RecommendSection>
-          <Recommendblock>
-            <RecommendMainImage src={product.main_image} />
-            <RecommendProductTitle>{product.title}</RecommendProductTitle>
-            <RecommendID>{product.id}</RecommendID>
-            <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
-
-          <Recommendblock>
-            <RecommendMainImage src={product.main_image} />
-            <RecommendProductTitle>{product.title}</RecommendProductTitle>
-            <RecommendID>{product.id}</RecommendID>
-            <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
-
-          <Recommendblock>
-            <RecommendMainImage src={product.main_image} />
-            <RecommendProductTitle>{product.title}</RecommendProductTitle>
-            <RecommendID>{product.id}</RecommendID>
-            <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
-
-          <Recommendblock>
-            <RecommendMainImage src={product.main_image} />
-            <RecommendProductTitle>{product.title}</RecommendProductTitle>
-            <RecommendID>{product.id}</RecommendID>
-            <RecommendPrice>TWD.{product.price}</RecommendPrice>
-          </Recommendblock>
+          {recommendData.data.recommend.map((item, index) => {
+            return (
+              <Recommendblock>
+                <RecommendMainImage src={item.main_image} />
+                <RecommendProductTitle>{item.title}</RecommendProductTitle>
+                <RecommendID>{item.id}</RecommendID>
+                <RecommendPrice>TWD.{item.price}</RecommendPrice>
+              </Recommendblock>
+            );
+          })}
         </RecommendSection>
       </Recommend>
 

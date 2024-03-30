@@ -60,10 +60,6 @@ function Product({ product }) {
   const [starIndex, setStarIndex] = useState(0); // 這個是user商品的星星數，因為是index所以送出時應該要再加1
   const [postRes, setPostRes] = useState("");
 
-  function handleCommentSubmit(e) {
-    e.preventDefault();
-  }
-
   async function handleComment(e) {
     e.preventDefault();
 
@@ -99,17 +95,12 @@ function Product({ product }) {
         <ProductInfo>尺寸｜{product.size}</ProductInfo>
         <ProductCommentWarp>
           {product.star === 0 ? (
-            <form action="" onSubmit={handleCommentSubmit}>
-              <ProductComment>
-                <ProductInfo>請填寫評論</ProductInfo>
-                <CommentStars
-                  starIndex={starIndex}
-                  setStarIndex={setStarIndex}
-                />
-                {/* <input type="text" placeholder="請輸入評論" /> */}
-                <button onClick={handleComment}>送出</button>
-              </ProductComment>
-            </form>
+            <ProductComment>
+              <ProductInfo>請填寫評論</ProductInfo>
+              <CommentStars starIndex={starIndex} setStarIndex={setStarIndex} />
+              {/* <input type="text" placeholder="請輸入評論" /> */}
+              <button onClick={handleComment}>送出</button>
+            </ProductComment>
           ) : (
             <ProductComment>
               <p>已填寫評論</p>

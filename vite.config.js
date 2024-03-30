@@ -4,10 +4,10 @@ import { defineConfig } from "vite";
 import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig(() => {
-    return {
-        plugins: [react(), mkcert()],
-        server: {
-            https: true,
-        },
-    };
+  return {
+    plugins: [react(), mkcert()],
+    server: {
+      https: true,
+    },
+  };
 });

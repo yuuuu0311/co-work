@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Product from "./Product";
 import styled from "styled-components";
 // import api from "../../utils/api";
 // import ProductVariants from "./ProductVariants";
@@ -60,33 +61,6 @@ const InfoWrap = styled.div`
     padding: 0rem 0 1rem;
 `;
 
-const ProductWrap = styled.div`
-    display: flex;
-    gap: 1rem;
-`;
-
-const ProductImg = styled.div`
-    max-width: 30%;
-    img {
-        width: 100%;
-        height: auto;
-    }
-`;
-
-const ProductInfoWrap = styled.h3`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-`;
-
-const ProductTitle = styled.h3`
-    color: #454545;
-`;
-
-const ProductInfo = styled.h3`
-    color: #454545;
-`;
-
 // markData
 const markData = {
     orderList: [
@@ -106,7 +80,7 @@ const markData = {
                     },
                     size: "M",
                     qty: 10,
-                    star: 4,
+                    star: 0,
                 },
                 {
                     id: 201807201824,
@@ -166,20 +140,7 @@ const markData = {
     ],
 };
 
-function Product() {
-    // const [product, setProduct] = useState();
-    // const { id } = useParams();
-
-    // useEffect(() => {
-    //     async function getProduct() {
-    //         const { data } = await api.getProduct(id);
-    //         setProduct(data);
-    //     }
-    //     getProduct();
-    // }, [id]);
-
-    // if (!product) return null;
-
+function HistoryPage() {
     return (
         <Wrapper>
             <Title>歷史訂單</Title>
@@ -196,30 +157,12 @@ function Product() {
                                     {new Date(date).toDateString()}
                                 </p>
                             </InfoWrap>
-                            {productList.map((product) => {
+                            {productList.map((product, index) => {
                                 return (
-                                    <ProductWrap key={product.id}>
-                                        <ProductImg>
-                                            <img
-                                                src={product.main_image}
-                                                alt=""
-                                            />
-                                        </ProductImg>
-                                        <ProductInfoWrap>
-                                            <ProductTitle>
-                                                {product.name}
-                                            </ProductTitle>
-                                            <ProductInfo>
-                                                {product.id}
-                                            </ProductInfo>
-                                            <ProductInfo>
-                                                顏色｜{product.color.name}
-                                            </ProductInfo>
-                                            <ProductInfo>
-                                                尺寸｜{product.size}
-                                            </ProductInfo>
-                                        </ProductInfoWrap>
-                                    </ProductWrap>
+                                    <Product
+                                        product={product}
+                                        key={product.id + index}
+                                    ></Product>
                                 );
                             })}
                         </Order>
@@ -230,4 +173,4 @@ function Product() {
     );
 }
 
-export default Product;
+export default HistoryPage;

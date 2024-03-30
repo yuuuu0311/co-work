@@ -7,6 +7,7 @@ import Product from "./pages/Product";
 import Profile from "./pages/Profile";
 import ThankYou from "./pages/ThankYou";
 import History from "./pages/History";
+import Bid from "./pages/Bid";
 
 import { initializeApp } from "firebase/app";
 
@@ -33,6 +34,7 @@ root.render(
         <Route path="thankyou" element={<ThankYou />} />
         <Route path="profile" element={<Profile />} />
         <Route path="history" element={<History />} />
+        <Route path="bid" element={<Bid />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

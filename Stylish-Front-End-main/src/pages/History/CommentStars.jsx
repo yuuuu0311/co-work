@@ -15,9 +15,7 @@ const WarpStars = styled.div`
   }
 `;
 
-const CommentStars = ({ size = 30, space = 8 }) => {
-  const [starIndex, setStarIndex] = useState(0); // 這個是user商品的星星數，因為是index所以送出時應該要再加1
-
+const CommentStars = ({ size = 30, space = 8, starIndex, setStarIndex }) => {
   function handleStarIndex(e) {
     const index = e.currentTarget.getAttribute("index");
     setStarIndex(+index);

@@ -5,9 +5,9 @@ import Checkout from "./pages/Checkout";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Profile from "./pages/Profile";
-import ThankYou from "./pages/ThankYou";
 import History from "./pages/History";
 import Bid from "./pages/Bid";
+import ThankYou from "./pages/ThankYou";
 
 import { initializeApp } from "firebase/app";
 

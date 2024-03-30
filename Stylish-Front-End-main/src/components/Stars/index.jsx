@@ -14,7 +14,11 @@ const WarpStars = styled.div`
   }
 `;
 
+<<<<<<< HEAD
 const Stars = ({ size, rate, space }) => {
+=======
+const Stars = ({ size = 30, rate = 4, space = 8 }) => {
+>>>>>>> 02e4186f5ed686732d7dcbbbedea14eecbba3072
   return (
     <WarpStars $size={size} $space={space}>
       {Array(rate)
@@ -61,4 +65,8 @@ const Stars = ({ size, rate, space }) => {
   );
 };
 
+<<<<<<< HEAD
 export default Stars;
+=======
+export default Stars;
+>>>>>>> 02e4186f5ed686732d7dcbbbedea14eecbba3072

@@ -296,6 +296,25 @@ const CommentUser = styled.div`
   }
 `;
 
+
+const ClientsCommentsSection = styled.div`
+display: flex;
+`;
+
+
+const ClientComent = styled.div`
+margin-top: 2rem;
+width: 50%;
+
+`;
+
+const ClientName = styled.div`
+font-size: 30px;
+margin-bottom: 10px;
+`;
+
+
+
 //................................................................
 
 const Images = styled.div`
@@ -349,12 +368,25 @@ function Product() {
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
         <CommentStar>
-          <CommentUser>
-            <p>使用者A</p>
-          </CommentUser>
+
           <Stars size={40} rate={4} space={8} />
         </CommentStar>
       </Details>
+
+      <Story>
+        <StoryTitle>顧客評價</StoryTitle>
+  <ClientsCommentsSection>
+    <ClientComent>
+      <ClientName>王小姐</ClientName>
+      <Stars size={25} rate={5} space={6} />
+    </ClientComent>
+    <ClientComent>
+      <ClientName>陳先生</ClientName>
+      <Stars size={25} rate={3} space={6} />
+    </ClientComent>
+  </ClientsCommentsSection>
+      </Story>
+
 
       <Recommend>
         <RecommendTitle>推薦商品</RecommendTitle>

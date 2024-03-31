@@ -1,8 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CartContext } from "../../context/cartContext";
 import add from "./add.png";
 import minus from "./minus.png";
+
+import SizeDialog from "./SizeDialog";
 
 const Option = styled.div`
     display: flex;
@@ -123,6 +125,8 @@ function ProductVariants({ product }) {
     const [quantity, setQuantity] = useState(0);
     const { cartItems, setCartItems } = useContext(CartContext);
 
+    const [dialog, setDialog] = useState(false);
+
     function getStock(colorCode, size) {
         if (!colorCode || !size) return 0;
         const qty =
@@ -200,6 +204,10 @@ function ProductVariants({ product }) {
         return "加入購物車";
     }
 
+    const showDialog = () => {
+        setDialog((prev) => (prev ? false : true));
+    };
+
     return (
         <>
             <Option>
@@ -237,13 +245,18 @@ function ProductVariants({ product }) {
                     );
                 })}
                 {product.category === "accessories" || (
-                    <Size $isDisabled={selectedColorCode === undefined}>
+                    <Size
+                        $isDisabled={selectedColorCode === undefined}
+                        onClick={() => {
+                            showDialog();
+                        }}
+                    >
                         AI選尺
                     </Size>
                 )}
             </Option>
             <Option>
-                <OptionName hideOnMobile>數量｜</OptionName>
+                <OptionName $hideOnMobile>數量｜</OptionName>
                 <QuantitySelector>
                     <DecrementButton
                         onClick={() => {
@@ -265,6 +278,7 @@ function ProductVariants({ product }) {
                 </QuantitySelector>
             </Option>
             <AddToCart onClick={addToCart}>{addToCartButtonText()}</AddToCart>
+            {dialog ? <SizeDialog showDialog={showDialog} /> : <></>}
         </>
     );
 }

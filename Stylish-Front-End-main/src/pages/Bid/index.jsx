@@ -4,6 +4,7 @@ import styled from "styled-components";
 import api from "../../utils/api";
 import ProductBidBox from "./ProductBidBox";
 import Bidders from "./Bidders";
+import { db } from "../../utils/firestore";
 
 const Wrapper = styled.div`
   max-width: 960px;

@@ -84,26 +84,13 @@ function ProductBidBox({ product }) {
     );
   }
 
-  // async function handleComment(e) {
-  //   e.preventDefault();
+  async function handleComment(e) {
+    e.preventDefault();
 
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       user_id: 10273,
-  //       product_id: 201807201824,
-  //       star: 2,
-  //     }),
-  //   };
-
-  //   const response = await fetch(
-  //     "https://smillzy.net/api/1.0/products/comments",
-  //     requestOptions
-  //   );
-  //   const data = await response.json();
-  //   setPostRes(data);
-  // }
+    const response = await fetch("https://smillzy.net/api/1.0/products/women");
+    const data = await response.json();
+    setPostRes(data);
+  }
 
   return (
     <>
@@ -126,7 +113,7 @@ function ProductBidBox({ product }) {
           </MathButton>
         </QuantitySelector>
       </Option>
-      <AddToBid>送出競標價格</AddToBid>
+      <AddToBid onClick={handleComment}>送出競標價格</AddToBid>
     </>
   );
 }

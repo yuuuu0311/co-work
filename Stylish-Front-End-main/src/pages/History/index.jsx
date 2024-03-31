@@ -104,7 +104,7 @@ const markData = {
 };
 
 function HistoryPage() {
-    const [historyOrder, setHistoryOrder] = useState(null);
+    const [historyOrder, setHistoryOrder] = useState(undefined);
 
     useEffect(() => {
         (async () => {
@@ -124,7 +124,7 @@ function HistoryPage() {
         <Wrapper>
             <Title>歷史訂單</Title>
             <OrderList>
-                {historyOrder.map((order, index) => {
+                {historyOrder?.map((order, index) => {
                     const { id, date, list: productList } = order;
 
                     return (

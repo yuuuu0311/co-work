@@ -1,8 +1,9 @@
 const api = {
     hostname: "https://api.appworks-school.tw/api/1.0",
+    backEndHostname:"https://smillzy.net/api/1.0",
     async getProducts(category, paging) {
         const response = await fetch(
-            `${this.hostname}/products/${category}?paging=${paging}`
+            `${this.backEndHostname}/products/${category}?paging=${paging}`
         );
         return await response.json();
     },
@@ -12,13 +13,13 @@ const api = {
     },
     async searchProducts(keyword, paging) {
         const response = await fetch(
-            `${this.hostname}/products/search?keyword=${keyword}&paging=${paging}`
+            `${this.backEndHostname}/products/search?keyword=${keyword}&paging=${paging}`
         );
         return await response.json();
     },
     async getProduct(id) {
         const response = await fetch(
-            `${this.hostname}/products/details?id=${id}`
+            `${this.backEndHostname}/products/details?id=${id}`
         );
         return await response.json();
     },

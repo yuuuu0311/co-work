@@ -200,8 +200,6 @@ function ProductVariants({ product }) {
         return "加入購物車";
     }
 
-    console.log(selectedColorCode);
-
     return (
         <>
             <Option>
@@ -238,9 +236,11 @@ function ProductVariants({ product }) {
                         </Size>
                     );
                 })}
-                <Size $isDisabled={selectedColorCode === undefined}>
-                    AI選尺
-                </Size>
+                {product.category === "accessories" || (
+                    <Size $isDisabled={selectedColorCode === undefined}>
+                        AI選尺
+                    </Size>
+                )}
             </Option>
             <Option>
                 <OptionName hideOnMobile>數量｜</OptionName>

@@ -24,6 +24,7 @@ const api = {
     },
     async checkout(data, jwtToken) {
         const response = await fetch(`${this.hostname}/order/checkout`, {
+            // const response = await fetch(`https://smillzy.net/order/checkout`, {
             body: JSON.stringify(data),
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -52,7 +53,6 @@ const api = {
         });
         return await response.json();
     },
-
     async getHistory(uid) {
         const response = await fetch(
             `https://smillzy.net/api/1.0/report/orders?id=${uid}`

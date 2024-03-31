@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Stars from "../../components/Stars";
 import CommentStars from "./CommentStars";
+import { AuthContext } from "../../context/authContext";
 
 import styled from "styled-components";
 
@@ -58,8 +59,27 @@ const ProductComment = styled.div`
 
 function Product({ product }) {
   const [starIndex, setStarIndex] = useState(0); // 這個是user商品的星星數，因為是index所以送出時應該要再加1
-  function handleCommentSubmit(e) {
-    e.preventDafault;
+  const { user } = useContext(AuthContext);
+
+  async function handleComment(e) {
+    e.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: user.id,
+        product_id: product.id,
+        star: starIndex + 1,
+      }),
+    };
+
+    const response = await fetch(
+      "https://smillzy.net/api/1.0/products/comments",
+      requestOptions
+    );
+    const data = await response.json();
+    setPostRes(data);
   }
 
   return (
@@ -74,17 +94,12 @@ function Product({ product }) {
         <ProductInfo>尺寸｜{product.size}</ProductInfo>
         <ProductCommentWarp>
           {product.star === 0 ? (
-            <form action="" onSubmit={handleCommentSubmit}>
-              <ProductComment>
-                <ProductInfo>請填寫評論</ProductInfo>
-                <CommentStars
-                  starIndex={starIndex}
-                  setStarIndex={setStarIndex}
-                />
-                {/* <input type="text" placeholder="請輸入評論" /> */}
-                <button>送出</button>
-              </ProductComment>
-            </form>
+            <ProductComment>
+              <ProductInfo>請填寫評論</ProductInfo>
+              <CommentStars starIndex={starIndex} setStarIndex={setStarIndex} />
+              {/* <input type="text" placeholder="請輸入評論" /> */}
+              <button onClick={handleComment}>送出</button>
+            </ProductComment>
           ) : (
             <ProductComment>
               <p>已填寫評論</p>

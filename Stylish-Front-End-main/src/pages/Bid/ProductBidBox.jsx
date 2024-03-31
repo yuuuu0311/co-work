@@ -84,57 +84,25 @@ function ProductBidBox({ product }) {
     );
   }
 
-  function addToCart() {
-    if (!selectedColorCode) {
-      window.alert("請選擇顏色");
-      return;
-    }
-    if (!selectedSize) {
-      window.alert("請選擇尺寸");
-      return;
-    }
-    if (quantity === 0) {
-      window.alert("請選擇數量");
-      return;
-    }
+  async function handleComment(e) {
+    e.preventDefault();
 
-    const index = cartItems.findIndex(
-      (item) =>
-        item.id === product.id &&
-        item.color.code === selectedColorCode &&
-        item.size === selectedSize
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: 10273,
+        product_id: 201807201824,
+        star: 2,
+      }),
+    };
+
+    const response = await fetch(
+      "https://smillzy.net/api/1.0/products/comments",
+      requestOptions
     );
-    const newCartItems =
-      index !== -1
-        ? cartItems.map((item, i) => {
-            if (i === index) {
-              return {
-                ...item,
-                qty: item.qty + quantity,
-              };
-            }
-            return item;
-          })
-        : [
-            ...cartItems,
-            {
-              color: product.colors.find(
-                (color) => color.code === selectedColorCode
-              ),
-              id: product.id,
-              image: product.main_image,
-              name: product.title,
-              price: product.price,
-              qty: quantity,
-              size: selectedSize,
-              stock: getStock(selectedColorCode, selectedSize),
-            },
-          ];
-    setCartItems(newCartItems);
-    setSelectedColorCode();
-    setSelectedSize();
-    setQuantity(0);
-    window.alert("已加入商品");
+    const data = await response.json();
+    setPostRes(data);
   }
 
   return (
@@ -158,7 +126,7 @@ function ProductBidBox({ product }) {
           </MathButton>
         </QuantitySelector>
       </Option>
-      <AddToBid onClick={addToCart}>送出競標價格</AddToBid>
+      <AddToBid onClick={handleComment}>送出競標價格</AddToBid>
     </>
   );
 }

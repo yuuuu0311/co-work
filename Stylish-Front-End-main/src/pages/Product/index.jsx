@@ -18,7 +18,8 @@ const Wrapper = styled.div`
 `;
 
 const MainImage = styled.img`
-  width: 560px;
+  width: 460px;
+  object-fit:contain;
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -218,6 +219,7 @@ const RecommendContent = styled.div`
 
 const RecommendMainImage = styled.img`
   width: 202px;
+  cursor: pointer;
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -284,7 +286,6 @@ const CommentStar = styled.div`
 `;
 
 const CommentUser = styled.div`
-
   @media screen and (max-width: 1279px) {
     font-size: 25px;
     margin-bottom: 15px;
@@ -356,21 +357,21 @@ const recommendData = {
           "https://api.appworks-school.tw/assets/201807201824/main.jpg",
       },
       {
-        id: 201807201824,
+        id: 201807242216,
         title: "時尚輕鬆休閒西裝",
         price: 2399,
         main_image:
           "https://api.appworks-school.tw/assets/201807242216/main.jpg",
       },
       {
-        id: 201807201824,
+        id: 201807242230,
         title: "經典牛仔帽",
         price: 799,
         main_image:
           "https://api.appworks-school.tw/assets/201807242230/main.jpg",
       },
       {
-        id: 201807201824,
+        id: 201807242234,
         title: "柔軟氣質羊毛圍巾",
         price: 1799,
         main_image:
@@ -384,6 +385,10 @@ const recommendData = {
 function Product() {
   const [product, setProduct] = useState();
   const { id } = useParams();
+
+  const handleClick = (productId) => {
+    window.location.href = `/products/${productId}`;
+  };
 
   useEffect(() => {
     async function getProduct() {
@@ -401,6 +406,9 @@ function Product() {
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
+        <CommentStar>
+          <Stars size={30} rate={4} space={8} />
+        </CommentStar>
         <Price>TWD.{product.price}</Price>
         <ProductVariants product={product} />
         <Note>{product.note}</Note>
@@ -408,9 +416,6 @@ function Product() {
         <Description>{product.description}</Description>
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
-        <CommentStar>
-          <Stars size={30} rate={4} space={8} />
-        </CommentStar>
       </Details>
 
       <Story>
@@ -431,14 +436,18 @@ function Product() {
 
       <Recommend>
         <RecommendTitle>你可能會喜歡</RecommendTitle>
-        <RecommendSection>
-          {recommendData.data.recommend.map((item, index) => {
+        <RecommendSection >
+          {recommendData.data.recommend.map((product, index) => {
             return (
-              <Recommendblock>
-                <RecommendMainImage src={item.main_image} />
-                <RecommendProductTitle>{item.title}</RecommendProductTitle>
-                <RecommendID>{item.id}</RecommendID>
-                <RecommendPrice>TWD.{item.price}</RecommendPrice>
+              <Recommendblock >
+                <RecommendMainImage
+                  src={product.main_image}
+                  onClick={() => handleClick(product.id)}
+                />
+
+                <RecommendProductTitle>{product.title}</RecommendProductTitle>
+                <RecommendID>{product.id}</RecommendID>
+                <RecommendPrice>TWD.{product.price}</RecommendPrice>
               </Recommendblock>
             );
           })}

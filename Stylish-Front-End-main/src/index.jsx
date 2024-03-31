@@ -9,6 +9,7 @@ import History from "./pages/History";
 import Bid from "./pages/Bid";
 import ThankYou from "./pages/ThankYou";
 
+
 import { initializeApp } from "firebase/app";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

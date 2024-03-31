@@ -19,7 +19,8 @@ const Wrapper = styled.div`
 `;
 
 const MainImage = styled.img`
-    width: 560px;
+    width: 460px;
+    object-fit: contain;
 
     @media screen and (max-width: 1279px) {
         width: 100%;
@@ -219,6 +220,7 @@ const RecommendContent = styled.div`
 
 const RecommendMainImage = styled.img`
     width: 202px;
+    cursor: pointer;
 
     @media screen and (max-width: 1279px) {
         width: 100%;
@@ -401,16 +403,16 @@ function Product() {
             <Details>
                 <Title>{product.title}</Title>
                 <ID>{product.id}</ID>
-                <Price>TWD.{product.price}</Price>
-                <ProductVariants product={product} />
-                <Note>{product.note}</Note>
-                <Texture>{product.texture}</Texture>
-                <Description>{product.description}</Description>
-                <Place>素材產地 / {product.place}</Place>
-                <Place>加工產地 / {product.place}</Place>
                 <CommentStar>
                     <Stars size={30} rate={4} space={8} />
                 </CommentStar>
+                <Price>TWD.{product.price}</Price>
+                <ProductVariants product={product} />
+                {/* <Note>{product.note}</Note> */}
+                <Texture>{product.texture}</Texture>
+                {/* <Description>{product.description}</Description> */}
+                <Place>素材產地 / {product.place}</Place>
+                <Place>加工產地 / {product.place}</Place>
             </Details>
 
             <Story>

@@ -2,47 +2,54 @@ import { useEffect, useState } from "react";
 import api from "../api";
 
 const useProducts = ({ keyword, category }) => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [nextPaging, setNextPaging] = useState(0);
-  const [shouldReset, setShouldReset] = useState(false);
+    const markSoldNum = Math.floor(Math.random() * 9999);
 
-  async function fetchProducts() {
-    const isTheLastPage = nextPaging === undefined;
-    if (isTheLastPage) return;
-    if (isLoading) return;
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [nextPaging, setNextPaging] = useState(0);
+    const [shouldReset, setShouldReset] = useState(false);
 
-    setIsLoading(true);
-    const response = keyword
-      ? await api.searchProducts(keyword, nextPaging)
-      : await api.getProducts(category, nextPaging);
+    async function fetchProducts() {
+        const isTheLastPage = nextPaging === undefined;
+        if (isTheLastPage) return;
+        if (isLoading) return;
 
-    const isTheFirstPage = nextPaging === 0;
-    if (isTheFirstPage) {
-      setProducts(response.data);
-    } else {
-      setProducts((prev) => [...prev, ...response.data]);
+        setIsLoading(true);
+        const response = keyword
+            ? await api.searchProducts(keyword, nextPaging)
+            : await api.getProducts(category, nextPaging);
+
+        const isTheFirstPage = nextPaging === 0;
+        if (isTheFirstPage) {
+            setProducts(response.data);
+        } else {
+            setProducts((prev) => [...prev, ...response.data]);
+        }
+
+        setNextPaging(response.next_paging);
+        setIsLoading(false);
     }
 
-    setNextPaging(response.next_paging);
-    setIsLoading(false);
-  }
+    function initializeProducts() {
+        setProducts([]);
+        setNextPaging(0);
+        setShouldReset(true);
+    }
 
-  function initializeProducts() {
-    setProducts([]);
-    setNextPaging(0);
-    setShouldReset(true);
-  }
+    useEffect(initializeProducts, [keyword, category]);
 
-  useEffect(initializeProducts, [keyword, category]);
+    useEffect(() => {
+        if (!shouldReset) return;
+        fetchProducts();
+        setShouldReset(false);
+    }, [shouldReset]);
 
-  useEffect(() => {
-    if (!shouldReset) return;
-    fetchProducts();
-    setShouldReset(false);
-  }, [shouldReset]);
-
-  return { products, loadMoreProducts: fetchProducts, isLoading };
+    return {
+        markSoldNum,
+        products,
+        loadMoreProducts: fetchProducts,
+        isLoading,
+    };
 };
 
 export default useProducts;

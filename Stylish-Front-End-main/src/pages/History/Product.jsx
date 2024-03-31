@@ -18,17 +18,17 @@ const ProductImg = styled.div`
   }
 `;
 
-const ProductInfoWrap = styled.h3`
+const ProductInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
 `;
 
-const ProductTitle = styled.h3`
+const ProductTitle = styled.div`
   color: #454545;
 `;
 
-const ProductInfo = styled.h3`
+const ProductInfo = styled.div`
   color: #454545;
 `;
 

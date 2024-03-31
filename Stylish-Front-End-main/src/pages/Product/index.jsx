@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 `;
 
 const MainImage = styled.img`
-    width: 460px;
+    width: 40%;
     object-fit: contain;
 
     @media screen and (max-width: 1279px) {
@@ -108,7 +108,7 @@ const Texture = styled(Detail)`
 `;
 
 const Description = styled(Detail)`
-    white-space: pre;
+    /* white-space: pre; */
 `;
 
 const Place = styled(Detail)`
@@ -205,19 +205,6 @@ const RecommendTitle = styled.div`
     }
 `;
 
-const RecommendContent = styled.div`
-    line-height: 30px;
-    margin-top: 28px;
-    font-size: 20px;
-    color: #3f3a3a;
-
-    @media screen and (max-width: 1279px) {
-        line-height: 25px;
-        margin-top: 12px;
-        font-size: 14px;
-    }
-`;
-
 const RecommendMainImage = styled.img`
     width: 202px;
     cursor: pointer;
@@ -283,7 +270,18 @@ const RecommendSection = styled.div`
 const Recommendblock = styled.div``;
 
 const CommentStar = styled.div`
+    display: flex;
     margin-top: 20px;
+    align-items: center;
+
+    p {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    span {
+        margin-left: 15px;
+    }
 `;
 
 const CommentUser = styled.div`
@@ -300,7 +298,6 @@ const ClientsCommentsSection = styled.div`
 
 const ClientComent = styled.div`
     margin-top: 2rem;
-
     width: 50%;
 `;
 
@@ -386,6 +383,8 @@ const recommendData = {
 function Product() {
     const [product, setProduct] = useState();
     const { id } = useParams();
+    const [comments, setComments] = useState([]);
+    const [recommend, setRecommend] = useState([]);
 
     useEffect(() => {
         async function getProduct() {
@@ -395,7 +394,27 @@ function Product() {
         getProduct();
     }, [id]);
 
+    useEffect(() => {
+        async function getUserComents() {
+            const { data } = await api.getUserComents(id);
+            setComments(data.comment);
+        }
+        getUserComents();
+    }, []);
+
+    // useEffect(() => {
+    //     async function recommendData() {
+    //         console.log("data");
+    //         const data = await api.recommendData(id);
+    //         console.log("data");
+    //         setRecommend(data);
+    //     }
+    //     recommendData();
+    // }, []);
+
+    if (!comments) return null;
     if (!product) return null;
+    if (!recommend) return null;
 
     return (
         <Wrapper>
@@ -404,13 +423,19 @@ function Product() {
                 <Title>{product.title}</Title>
                 <ID>{product.id}</ID>
                 <CommentStar>
-                    <Stars size={30} rate={4} space={8} />
+                    <p>4</p>
+                    <Stars size={30} rate={product.star} space={8} />
+                    <p>
+                        <span>評論數字(51)</span>
+                    </p>
                 </CommentStar>
                 <Price>TWD.{product.price}</Price>
                 <ProductVariants product={product} />
-                {/* <Note>{product.note}</Note> */}
+                <Note>{product.note === "NULL" ? "" : product.note}</Note>
                 <Texture>{product.texture}</Texture>
-                {/* <Description>{product.description}</Description> */}
+                <Description>
+                    {product.description === "NULL" ? "" : product.description}
+                </Description>
                 <Place>素材產地 / {product.place}</Place>
                 <Place>加工產地 / {product.place}</Place>
             </Details>
@@ -418,9 +443,9 @@ function Product() {
             <Story>
                 <StoryTitle>顧客評價</StoryTitle>
                 <ClientsCommentsSection>
-                    {recommendData.data.comment.map((item) => {
+                    {comments?.map((item) => {
                         return (
-                            <ClientComent>
+                            <ClientComent key={item.user_id}>
                                 <ClientName>{item.name}</ClientName>
                                 <CommentUser>
                                     <Stars
@@ -438,28 +463,57 @@ function Product() {
             <Recommend>
                 <RecommendTitle>你可能會喜歡</RecommendTitle>
                 <RecommendSection>
-                    {recommendData.data.recommend.map((item, index) => {
-                        return (
-                            <Link to={`/products/${item.id}`}>
-                                <Recommendblock key={item.id} data-id={item.id}>
-                                    <RecommendMainImage src={item.main_image} />
-                                    <RecommendProductTitle>
-                                        {item.title}
-                                    </RecommendProductTitle>
-                                    <RecommendID>{item.id}</RecommendID>
-                                    <RecommendPrice>
-                                        TWD.{item.price}
-                                    </RecommendPrice>
-                                </Recommendblock>
-                            </Link>
-                        );
-                    })}
+                    {recommend.length == 0
+                        ? recommendData.data.recommend.map((item, index) => {
+                              return (
+                                  <Link
+                                      to={`/products/${item.id}`}
+                                      key={item.id}
+                                  >
+                                      <Recommendblock data-id={item.id}>
+                                          <RecommendMainImage
+                                              src={item.main_image}
+                                          />
+                                          <RecommendProductTitle>
+                                              {item.title}
+                                          </RecommendProductTitle>
+                                          <RecommendID>{item.id}</RecommendID>
+                                          <RecommendPrice>
+                                              TWD.{item.price}
+                                          </RecommendPrice>
+                                      </Recommendblock>
+                                  </Link>
+                              );
+                          })
+                        : recommend.map((item, index) => {
+                              return (
+                                  <Link
+                                      to={`/products/${item.id}`}
+                                      key={item.id}
+                                  >
+                                      <Recommendblock data-id={item.id}>
+                                          <RecommendMainImage
+                                              src={item.main_image}
+                                          />
+                                          <RecommendProductTitle>
+                                              {item.title}
+                                          </RecommendProductTitle>
+                                          <RecommendID>{item.id}</RecommendID>
+                                          <RecommendPrice>
+                                              TWD.{item.price}
+                                          </RecommendPrice>
+                                      </Recommendblock>
+                                  </Link>
+                              );
+                          })}
                 </RecommendSection>
             </Recommend>
 
             <Story>
                 <StoryTitle>細部說明</StoryTitle>
-                <StoryContent>{product.story}</StoryContent>
+                <StoryContent>
+                    {product.story === "NULL" ? "" : product.story}
+                </StoryContent>
             </Story>
             <Images>
                 {product.images.map((image, index) => (

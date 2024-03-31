@@ -23,9 +23,23 @@ const api = {
         );
         return await response.json();
     },
+    async getUserComents(id) {
+        const response = await fetch(
+            `${this.backEndHostname}/products/details/comment?id=${id}`
+        );
+        return await response.json();
+    },
+
+    async recommendData(id) {
+        const response = await fetch(
+            `https://smillzy.net/python/recommendation?id=${id}`
+        );
+        console.log("1323");
+        return await response.json();
+    },
+
     async checkout(data, jwtToken) {
         const response = await fetch(`${this.hostname}/order/checkout`, {
-            // const response = await fetch(`https://smillzy.net/order/checkout`, {
             body: JSON.stringify(data),
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -54,6 +68,7 @@ const api = {
         });
         return await response.json();
     },
+
     async getHistory(uid) {
         const response = await fetch(
             `https://smillzy.net/api/1.0/report/orders?id=${uid}`

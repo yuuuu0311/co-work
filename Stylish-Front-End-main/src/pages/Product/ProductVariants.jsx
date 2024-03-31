@@ -30,9 +30,10 @@ const OptionName = styled.div`
 const Color = styled.div`
     width: 36px;
     height: 36px;
+    opacity: 35%;
     padding: 6px;
     border: 6px solid white;
-    box-shadow: 0px 0px 1px #bbbbbb;
+    box-shadow: 0px 0px 1px #212121;
     cursor: pointer;
     margin-left: 21px;
     background-color: ${(props) => props.$colorCode};

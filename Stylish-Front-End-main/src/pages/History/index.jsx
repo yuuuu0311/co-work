@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import Product from "./Product";
 import styled from "styled-components";
-// import api from "../../utils/api";
+import api from "../../utils/api";
 // import ProductVariants from "./ProductVariants";
 
 const Wrapper = styled.div`
@@ -48,7 +48,6 @@ const Order = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
     border: 1px solid gray;
     padding: 1rem;
 `;
@@ -100,52 +99,32 @@ const markData = {
             ],
             total: 99999,
         },
-        {
-            id: 100000001,
-            date: 1710087463000,
-            list: [
-                {
-                    id: 201807201824,
-                    name: "前開衩扭結洋裝", //應改成title
-                    price: 799,
-                    main_image:
-                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
-                    color: {
-                        name: "白色",
-                        code: "FFFFFF",
-                    },
-                    size: "M",
-                    qty: 10,
-                    star: 4,
-                },
-                {
-                    id: 201807201824,
-                    name: "前開衩扭結洋裝", //應改成title
-                    price: 799,
-                    main_image:
-                        "https://api.appworks-school.tw/assets/201807201824/main.jpg",
-                    color: {
-                        name: "白色",
-                        code: "FFFFFF",
-                    },
-                    size: "M",
-                    qty: 10,
-                    star: 4,
-                },
-                // ...
-            ],
-            total: 99999,
-        },
         // ...
     ],
 };
 
 function HistoryPage() {
+    const [historyOrder, setHistoryOrder] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const data = await api.getHistory(10273);
+
+                data.orderList === undefined
+                    ? setHistoryOrder(markData.orderList)
+                    : setHistoryOrder(data.orderList);
+            } catch (error) {
+                console.log(error.message);
+            }
+        })();
+    }, []);
+
     return (
         <Wrapper>
             <Title>歷史訂單</Title>
             <OrderList>
-                {markData.orderList.map((order, index) => {
+                {historyOrder.map((order, index) => {
                     const { id, date, list: productList } = order;
 
                     return (

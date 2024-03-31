@@ -1,14 +1,18 @@
-import { Outlet } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
-import { Reset } from 'styled-reset';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import { AuthContextProvider } from './context/authContext';
-import { CartContextProvider } from './context/cartContext';
+import { Outlet } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import { Reset } from "styled-reset";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { AuthContextProvider } from "./context/authContext";
+import { CartContextProvider } from "./context/cartContext";
 
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   body {
@@ -27,19 +31,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  return (
-    <>
-      <Reset />
-      <GlobalStyle />
-      <AuthContextProvider>
-        <CartContextProvider>
-          <Header />
-          <Outlet />
-          <Footer />
-        </CartContextProvider>
-      </AuthContextProvider>
-    </>
-  );
+    return (
+        <>
+            <Reset />
+            <GlobalStyle />
+            <AuthContextProvider>
+                <CartContextProvider>
+                    <Header />
+                    <Outlet />
+                    <Footer />
+                </CartContextProvider>
+            </AuthContextProvider>
+        </>
+    );
 }
 
 export default App;

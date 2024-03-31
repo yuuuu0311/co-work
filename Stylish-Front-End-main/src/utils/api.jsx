@@ -1,8 +1,9 @@
 const api = {
-  hostname: 'https://api.appworks-school.tw/api/1.0',
+  hostname: "https://api.appworks-school.tw/api/1.0",
+  backEndHostname: "https://smillzy.net/api/1.0",
   async getProducts(category, paging) {
     const response = await fetch(
-      `${this.hostname}/products/${category}?paging=${paging}`
+      `${this.backEndHostname}/products/${category}?paging=${paging}`
     );
     return await response.json();
   },
@@ -12,22 +13,39 @@ const api = {
   },
   async searchProducts(keyword, paging) {
     const response = await fetch(
-      `${this.hostname}/products/search?keyword=${keyword}&paging=${paging}`
+      `${this.backEndHostname}/products/search?keyword=${keyword}&paging=${paging}`
     );
     return await response.json();
   },
   async getProduct(id) {
-    const response = await fetch(`${this.hostname}/products/details?id=${id}`);
+    const response = await fetch(
+      `${this.backEndHostname}/products/details?id=${id}`
+    );
     return await response.json();
   },
+  async getUserComents(id) {
+    const response = await fetch(
+      `${this.backEndHostname}/products/details/comment?id=${id}`
+    );
+    return await response.json();
+  },
+
+  async recommendData(id) {
+   
+    const response = await fetch(
+      `https://smillzy.net/python/recommendation?id=${id}`
+    ); console.log('1323');
+    return await response.json();
+  },
+
   async checkout(data, jwtToken) {
     const response = await fetch(`${this.hostname}/order/checkout`, {
       body: JSON.stringify(data),
       headers: new Headers({
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${jwtToken}`,
       }),
-      method: 'POST',
+      method: "POST",
     });
     return await response.json();
   },
@@ -35,19 +53,26 @@ const api = {
     const response = await fetch(`${this.hostname}/user/signin`, {
       body: JSON.stringify(data),
       headers: new Headers({
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       }),
-      method: 'POST',
+      method: "POST",
     });
     return await response.json();
   },
   async getProfile(jwtToken) {
     const response = await fetch(`${this.hostname}/user/profile`, {
       headers: new Headers({
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${jwtToken}`,
       }),
     });
+    return await response.json();
+  },
+
+  async getHistory(uid) {
+    const response = await fetch(
+      `https://smillzy.net/api/1.0/report/orders?id=${uid}`
+    );
     return await response.json();
   },
 };

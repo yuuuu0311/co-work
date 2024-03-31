@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../../utils/api";
 import ProductVariants from "./ProductVariants";
 import Stars from "../../components/Stars";
+
+import SizeDialog from "./SizeDialog";
 
 const Wrapper = styled.div`
     max-width: 960px;
@@ -355,21 +358,21 @@ const recommendData = {
                     "https://api.appworks-school.tw/assets/201807201824/main.jpg",
             },
             {
-                id: 201807201824,
+                id: 201807242216,
                 title: "時尚輕鬆休閒西裝",
                 price: 2399,
                 main_image:
                     "https://api.appworks-school.tw/assets/201807242216/main.jpg",
             },
             {
-                id: 201807201824,
+                id: 201807242230,
                 title: "經典牛仔帽",
                 price: 799,
                 main_image:
                     "https://api.appworks-school.tw/assets/201807242230/main.jpg",
             },
             {
-                id: 201807201824,
+                id: 201807242234,
                 title: "柔軟氣質羊毛圍巾",
                 price: 1799,
                 main_image:
@@ -395,73 +398,84 @@ function Product() {
     if (!product) return null;
 
     return (
-        <Wrapper>
-            <MainImage src={product.main_image} />
-            <Details>
-                <Title>{product.title}</Title>
-                <ID>{product.id}</ID>
-                <Price>TWD.{product.price}</Price>
-                <ProductVariants product={product} />
-                <Note>{product.note}</Note>
-                <Texture>{product.texture}</Texture>
-                <Description>{product.description}</Description>
-                <Place>素材產地 / {product.place}</Place>
-                <Place>加工產地 / {product.place}</Place>
-                <CommentStar>
-                    <Stars size={30} rate={4} space={8} />
-                </CommentStar>
-            </Details>
+        <>
+            <Wrapper>
+                <MainImage src={product.main_image} />
+                <Details>
+                    <Title>{product.title}</Title>
+                    <ID>{product.id}</ID>
+                    <Price>TWD.{product.price}</Price>
+                    <ProductVariants product={product} />
+                    <Note>{product.note}</Note>
+                    <Texture>{product.texture}</Texture>
+                    <Description>{product.description}</Description>
+                    <Place>素材產地 / {product.place}</Place>
+                    <Place>加工產地 / {product.place}</Place>
+                    <CommentStar>
+                        <Stars size={30} rate={4} space={8} />
+                    </CommentStar>
+                </Details>
 
-            <Story>
-                <StoryTitle>顧客評價</StoryTitle>
-                <ClientsCommentsSection>
-                    {recommendData.data.comment.map((item) => {
-                        return (
-                            <ClientComent>
-                                <ClientName>{item.name}</ClientName>
-                                <CommentUser>
-                                    <Stars
-                                        size={25}
-                                        rate={item.star}
-                                        space={6}
-                                    />
-                                </CommentUser>
-                            </ClientComent>
-                        );
-                    })}
-                </ClientsCommentsSection>
-            </Story>
+                <Story>
+                    <StoryTitle>顧客評價</StoryTitle>
+                    <ClientsCommentsSection>
+                        {recommendData.data.comment.map((item) => {
+                            return (
+                                <ClientComent>
+                                    <ClientName>{item.name}</ClientName>
+                                    <CommentUser>
+                                        <Stars
+                                            size={25}
+                                            rate={item.star}
+                                            space={6}
+                                        />
+                                    </CommentUser>
+                                </ClientComent>
+                            );
+                        })}
+                    </ClientsCommentsSection>
+                </Story>
 
-            <Recommend>
-                <RecommendTitle>你可能會喜歡</RecommendTitle>
-                <RecommendSection>
-                    {recommendData.data.recommend.map((item, index) => {
-                        return (
-                            <Recommendblock>
-                                <RecommendMainImage src={item.main_image} />
-                                <RecommendProductTitle>
-                                    {item.title}
-                                </RecommendProductTitle>
-                                <RecommendID>{item.id}</RecommendID>
-                                <RecommendPrice>
-                                    TWD.{item.price}
-                                </RecommendPrice>
-                            </Recommendblock>
-                        );
-                    })}
-                </RecommendSection>
-            </Recommend>
+                <Recommend>
+                    <RecommendTitle>你可能會喜歡</RecommendTitle>
+                    <RecommendSection>
+                        {recommendData.data.recommend.map((item, index) => {
+                            return (
+                                <Link to={`/products/${item.id}`}>
+                                    <Recommendblock
+                                        key={item.id}
+                                        data-id={item.id}
+                                    >
+                                        <RecommendMainImage
+                                            src={item.main_image}
+                                        />
+                                        <RecommendProductTitle>
+                                            {item.title}
+                                        </RecommendProductTitle>
+                                        <RecommendID>{item.id}</RecommendID>
+                                        <RecommendPrice>
+                                            TWD.{item.price}
+                                        </RecommendPrice>
+                                    </Recommendblock>
+                                </Link>
+                            );
+                        })}
+                    </RecommendSection>
+                </Recommend>
 
-            <Story>
-                <StoryTitle>細部說明</StoryTitle>
-                <StoryContent>{product.story}</StoryContent>
-            </Story>
-            <Images>
-                {product.images.map((image, index) => (
-                    <Image src={image} key={index} />
-                ))}
-            </Images>
-        </Wrapper>
+                <Story>
+                    <StoryTitle>細部說明</StoryTitle>
+                    <StoryContent>{product.story}</StoryContent>
+                </Story>
+                <Images>
+                    {product.images.map((image, index) => (
+                        <Image src={image} key={index} />
+                    ))}
+                </Images>
+            </Wrapper>
+
+            <SizeDialog></SizeDialog>
+        </>
     );
 }
 

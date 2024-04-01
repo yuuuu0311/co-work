@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bidders Component</title>
     <script>
+      function click() {}
+
       function increaseQuantity() {
         const quantityDisplay = document.querySelector(".quantity");
         let quantity = parseInt(quantityDisplay.textContent, 10);
@@ -21,7 +23,9 @@
       }
 
       function handleBidSubmit() {
-        alert("Bid submitted. Add your submission logic here.");
+        const text = document.getElementById("text").textContent;
+        console.log(text);
+        // alert("Bid submitted. Add your submission logic here.");
       }
     </script>
     <link rel="stylesheet" href="style.css" />
@@ -32,7 +36,7 @@
       <div class="option">
         <div class="quantity-selector">
           <div class="math-button" onclick="decreaseQuantity()">-</div>
-          <div class="quantity">0</div>
+          <div class="quantity" id="text">0</div>
           <div class="math-button" onclick="increaseQuantity()">+</div>
         </div>
       </div>

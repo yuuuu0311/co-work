@@ -9,9 +9,7 @@ import History from "./pages/History";
 import Bid from "./pages/Bid";
 import ThankYou from "./pages/ThankYou";
 import LiveStream from "./pages/LiveStream";
-
-
-import { initializeApp } from "firebase/app";
+import Turn from "./pages/Home/Turn";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -26,7 +24,7 @@ root.render(
         <Route path="profile" element={<Profile />} />
         <Route path="history" element={<History />} />
         <Route path="bid" element={<Bid />} />
-        <Route path="live" element={<LiveStream />} />
+        <Route path="turn" element={<Turn />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

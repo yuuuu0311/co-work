@@ -330,42 +330,6 @@ const Image = styled.img`
   }
 `;
 
-// const recommendData = {
-//   data: {
-//     stars: 4,
-//     recommend: [
-//       {
-//         id: 201807201824,
-//         title: "前開衩扭結洋裝",
-//         price: 799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807201824/main.jpg",
-//       },
-//       {
-//         id: 201807242216,
-//         title: "時尚輕鬆休閒西裝",
-//         price: 2399,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242216/main.jpg",
-//       },
-//       {
-//         id: 201807242230,
-//         title: "經典牛仔帽",
-//         price: 799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242230/main.jpg",
-//       },
-//       {
-//         id: 201807242234,
-//         title: "柔軟氣質羊毛圍巾",
-//         price: 1799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242234/main.jpg",
-//       },
-//       // ...
-//     ],
-//   },
-// };
 
 function Product() {
   const [product, setProduct] = useState();
@@ -393,18 +357,15 @@ function Product() {
     getUserComents();
   }, []);
 
-  // console.log(comments);
+useEffect(() => {
+  async function fetchRecommendData() {
+    const response = await api.recommendData(id);
+    setRecommend(response.recommend);
+  }
+  fetchRecommendData();
+}, []);
 
 
-  useEffect(() => {
-    async function recommendData() {console.log('data');
-      const  data  = await api.recommendData(id); console.log('data');
-      setRecommend(data);
-    }
-    recommendData();
-  },[])
-
-  console.log(recommend);
 
   if (!comments) return null;
   if (!product) return null;
@@ -453,7 +414,7 @@ function Product() {
         <RecommendSection>
           {recommend.map((product, index) => {
             return (
-              <Recommendblock>
+              <Recommendblock key={product.id}>
                 <RecommendMainImage
                   src={product.main_image}
                   onClick={() => handleClick(product.id)}

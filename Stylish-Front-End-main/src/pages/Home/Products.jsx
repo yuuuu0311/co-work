@@ -129,7 +129,7 @@ function Products() {
         return a.price - b.price;
     });
 
-    console.log(sortedArray);
+    // console.log(sortedArray);
 
     return (
         <Wrapper>

@@ -175,6 +175,7 @@ const StoryContent = styled.div`
 
 const Images = styled.div`
   margin: 30px 0 0;
+  width: 100%;
 
   @media screen and (max-width: 1279px) {
     margin: 20px 24px 0;
@@ -182,7 +183,34 @@ const Images = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image1 = styled.img`
+  background-image: url(${detailImage1});
+
+  width: 100%;
+  height: 540px;
+  margin-top: 30px;
+
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
+
+  & + & {
+    margin-top: 30px;
+
+    @media screen and (max-width: 1279px) {
+      margin-top: 20px;
+    }
+  }
+`;
+
+const Image2 = styled.img`
+  background-image: url(${detailImage2});
+
+  width: 100%;
+  margin-top: 30px;
+
+  height: 540px;
+
   @media screen and (max-width: 1279px) {
     width: 100%;
   }
@@ -247,9 +275,8 @@ function Bid() {
         <StoryContent>{product.story}</StoryContent>
       </Story>
       <Images>
-        {product.images.map((image, index) => (
-          <Image src={image} key={index} />
-        ))}
+        <Image1 />
+        <Image2 />
       </Images>
     </Wrapper>
   );

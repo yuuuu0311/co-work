@@ -27,12 +27,12 @@ const Dialog = styled.ul`
     position: relative;
     overflow: hidden;
 
-    /* &:nth-child(even) {
-    background-color: #f8f3f2;
-  }
-  &:nth-child(odd) {
-    background-color: #a07e61;
-  } */
+    &:nth-child(even) {
+        background-color: #f8f3f2;
+    }
+    &:nth-child(odd) {
+        background-color: #a07e61;
+    }
 `;
 
 const Item = styled.li`
@@ -40,7 +40,8 @@ const Item = styled.li`
     height: 150px;
     position: absolute;
     transform-origin: right bottom;
-
+    background-color: ${({ $index, $prize }) =>
+        $index % $prize === 0 ? "red" : "white"};
     transform: ${({ $index, $prize }) =>
         `rotate(${($index * 360) / $prize + 10}deg) skew(${
             90 - 360 / $prize

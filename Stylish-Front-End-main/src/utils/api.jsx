@@ -34,7 +34,6 @@ const api = {
         const response = await fetch(
             `https://smillzy.net/python/recommendation?id=${id}`
         );
-        console.log("1323");
         return await response.json();
     },
 

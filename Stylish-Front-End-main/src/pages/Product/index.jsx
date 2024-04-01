@@ -402,15 +402,14 @@ function Product() {
         getUserComents();
     }, []);
 
-    // useEffect(() => {
-    //     async function recommendData() {
-    //         console.log("data");
-    //         const data = await api.recommendData(id);
-    //         console.log("data");
-    //         setRecommend(data);
-    //     }
-    //     recommendData();
-    // }, []);
+    useEffect(() => {
+        async function recommendData() {
+            const { recommend } = await api.recommendData(id);
+
+            setRecommend(recommend);
+        }
+        recommendData();
+    }, []);
 
     if (!comments) return null;
     if (!product) return null;

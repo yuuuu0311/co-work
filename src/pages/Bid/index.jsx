@@ -262,10 +262,10 @@ function Bid() {
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
         <Note>{product.note}</Note>
-        <Texture>{product.texture}</Texture>
-        <Description>{product.description}</Description>
-        <Place>素材產地 / {product.place}</Place>
-        <Place>加工產地 / {product.place}</Place>
+        <Texture>重量 / 5克拉</Texture>
+        {/* <Description>{product.description}</Description> */}
+        <Place>素材產地 / 阿爾卑斯山</Place>
+        <Place>加工產地 / 瑞士</Place>
         <BidTitle>參與競標</BidTitle>
         <ProductBidBox product={product} />
       </Details>

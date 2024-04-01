@@ -23,6 +23,7 @@ export const AuthContextProvider = ({ children }) => {
             provider: "facebook",
             access_token: accessToken,
         });
+
         const { access_token: tokenFromServer, user: userData } = data;
         setUser(userData);
         setJwtToken(tokenFromServer);

@@ -331,6 +331,7 @@ const Image = styled.img`
     }
 `;
 
+<<<<<<< HEAD
 const recommendData = {
     data: {
         // 原先商品之detail...，以下為需要新增的項目
@@ -379,6 +380,8 @@ const recommendData = {
         ],
     },
 };
+=======
+>>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 
 function Product() {
     const [product, setProduct] = useState();
@@ -406,15 +409,26 @@ function Product() {
         async function recommendData() {
             const { recommend } = await api.recommendData(id);
 
+<<<<<<< HEAD
             setRecommend(recommend);
         }
         recommendData();
     }, []);
+=======
+useEffect(() => {
+  async function fetchRecommendData() {
+    const response = await api.recommendData(id);
+    setRecommend(response.recommend);
+  }
+  fetchRecommendData();
+}, []);
+>>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 
     if (!comments) return null;
     if (!product) return null;
     if (!recommend) return null;
 
+<<<<<<< HEAD
     return (
         <Wrapper>
             <MainImage src={product.main_image} />
@@ -458,6 +472,8 @@ function Product() {
                     })}
                 </ClientsCommentsSection>
             </Story>
+=======
+>>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 
             <Recommend>
                 <RecommendTitle>你可能會喜歡</RecommendTitle>
@@ -508,6 +524,7 @@ function Product() {
                 </RecommendSection>
             </Recommend>
 
+<<<<<<< HEAD
             <Story>
                 <StoryTitle>細部說明</StoryTitle>
                 <StoryContent>
@@ -521,6 +538,79 @@ function Product() {
             </Images>
         </Wrapper>
     );
+=======
+  return (
+    <Wrapper>
+      <MainImage src={product.main_image} />
+      <Details>
+        <Title>{product.title}</Title>
+        <ID>{product.id}</ID>
+        <CommentStar>
+          <p>4</p>
+          <Stars size={30} rate={product.star} space={8} />
+          <p><pre>評論數字(51)</pre></p>
+        </CommentStar>
+        <Price>TWD.{product.price}</Price>
+        <ProductVariants product={product} />
+        <Note>{product.note === "NULL" ? "" : product.note}</Note>
+        <Texture>{product.texture}</Texture>
+        <Description>
+          {product.description === "NULL" ? "" : product.description}
+        </Description>
+        <Place>素材產地 / {product.place}</Place>
+        <Place>加工產地 / {product.place}</Place>
+      </Details>
+
+      <Story>
+        <StoryTitle>顧客評價</StoryTitle>
+        <ClientsCommentsSection>
+          {comments.map((item) => {
+            return (
+              <ClientComent>
+                <ClientName>{item.name}</ClientName>
+                <CommentUser>
+                  <Stars size={25} rate={item.star} space={6} />
+                </CommentUser>
+              </ClientComent>
+            );
+          })}
+        </ClientsCommentsSection>
+      </Story>
+
+      <Recommend>
+        <RecommendTitle>你可能會喜歡</RecommendTitle>
+        <RecommendSection>
+          {recommend.map((product, index) => {
+            return (
+              <Recommendblock key={product.id}>
+                <RecommendMainImage
+                  src={product.main_image}
+                  onClick={() => handleClick(product.id)}
+                />
+
+                <RecommendProductTitle>{product.title}</RecommendProductTitle>
+                <RecommendID>{product.id}</RecommendID>
+                <RecommendPrice>TWD.{product.price}</RecommendPrice>
+              </Recommendblock>
+            );
+          })}
+        </RecommendSection>
+      </Recommend>
+
+      <Story>
+        <StoryTitle>細部說明</StoryTitle>
+        <StoryContent>
+          {product.story === "NULL" ? "" : product.story}
+        </StoryContent>
+      </Story>
+      <Images>
+        {product.images.map((image, index) => (
+          <Image src={image} key={index} />
+        ))}
+      </Images>
+    </Wrapper>
+  );
+>>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 }
 
 export default Product;

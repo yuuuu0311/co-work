@@ -36,6 +36,7 @@ export const AuthContextProvider = ({ children }) => {
         const checkAuthStatus = async () => {
             await fb.init();
             const response = await fb.getLoginStatus();
+            console.log(response);
             if (response.status === "connected") {
                 handleLoginResponse(response);
                 setLoading(false);

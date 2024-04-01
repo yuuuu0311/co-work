@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { AuthContext } from '../../context/authContext';
-import { CartContext } from '../../context/cartContext';
-import cartMobile from './cart-mobile.png';
-import cart from './cart.png';
-import logo from './logo.png';
-import profileMobile from './profile-mobile.png';
-import profile from './profile.png';
-import search from './search.png';
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import styled from "styled-components";
+import { AuthContext } from "../../context/authContext";
+import { CartContext } from "../../context/cartContext";
+import cartMobile from "./cart-mobile.png";
+import cart from "./cart.png";
+import logo from "./logo.png";
+import profileMobile from "./profile-mobile.png";
+import profile from "./profile.png";
+import search from "./search.png";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -65,14 +65,14 @@ const CategoryLink = styled.a`
   padding-right: 11px;
   position: relative;
   text-decoration: none;
-  color: ${(props) => (props.$isActive ? '#8b572a' : '#3f3a3a')};
+  color: ${(props) => (props.$isActive ? "#8b572a" : "#3f3a3a")};
 
   @media screen and (max-width: 1279px) {
     font-size: 16px;
     letter-spacing: normal;
     padding: 0;
     text-align: center;
-    color: ${(props) => (props.$isActive ? 'white' : '#828282')};
+    color: ${(props) => (props.$isActive ? "white" : "#828282")};
     line-height: 50px;
     flex-grow: 1;
   }
@@ -87,7 +87,7 @@ const CategoryLink = styled.a`
   }
 
   & + &::before {
-    content: '|';
+    content: "|";
     position: absolute;
     left: 0;
     color: #3f3a3a;
@@ -167,7 +167,7 @@ const PageLink = styled(Link)`
 
   & + &::before {
     @media screen and (max-width: 1279px) {
-      content: '';
+      content: "";
       position: absolute;
       left: 0;
       width: 1px;
@@ -227,29 +227,29 @@ const PageLinkText = styled.div`
 
 const categories = [
   {
-    name: 'women',
-    displayText: '女裝',
+    name: "women",
+    displayText: "女裝",
   },
   {
-    name: 'men',
-    displayText: '男裝',
+    name: "men",
+    displayText: "男裝",
   },
   {
-    name: 'accessories',
-    displayText: '配件',
+    name: "accessories",
+    displayText: "配件",
   },
 ];
 
 function Header() {
-  const [inputValue, setInputValue] = useState('');
-  const { user } = useContext(AuthContext)
+  const [inputValue, setInputValue] = useState("");
+  const { user } = useContext(AuthContext);
   const { cartCount } = useContext(CartContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const category = searchParams.get('category');
+  const category = searchParams.get("category");
 
   useEffect(() => {
-    if (category) setInputValue('');
+    if (category) setInputValue("");
   }, [category]);
 
   return (
@@ -263,7 +263,7 @@ function Header() {
             onClick={() => {
               window.scrollTo({
                 top: 0,
-                behavior: 'smooth',
+                behavior: "smooth",
               });
               navigate(`/?category=${name}`);
             }}
@@ -274,7 +274,7 @@ function Header() {
       </CategoryLinks>
       <SearchInput
         onKeyPress={(e) => {
-          if (e.key === 'Enter') {
+          if (e.key === "Enter") {
             navigate(`/?keyword=${inputValue}`);
           }
         }}

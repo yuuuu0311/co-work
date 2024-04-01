@@ -35,26 +35,32 @@ const Dialog = styled.ul`
   }
 `;
 
-const Item = styled.li`
+const Items = styled.div`
+  position: absolute;
   width: 150px;
   height: 150px;
-  position: absolute;
   transform-origin: right bottom;
-  background-color: ${({ $index, $prize }) =>
-    $index % $prize === 0 ? "red" : "white"};
   transform: ${({ $index, $prize }) =>
-    `rotate(${($index * 360) / $prize + 10}deg) skew(${
-      90 - 360 / $prize
-    }deg, 0)`};
+    `rotate(${($index * 360) / $prize + 10}deg)`};
+`;
+
+const Item = styled.li`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-origin: right bottom;
+  background-color: ${({ $index }) =>
+    $index % 2 === 0 ? "#a07e61" : "#f8f3f2"};
+  transform: ${({ $index, $prize }) => ` skew(${90 - 360 / $prize}deg, 0)`};
 `;
 
 const ItemsWord = styled.p`
   position: absolute;
-  top: 90%;
+  padding-left: 30px;
+  top: 100%;
   left: 30%;
   transform-origin: center center;
-  transform: ${({ $index, $prize }) =>
-    ` translate(-20%, -70%) rotate(10deg)  skew(-${90 - 360 / $prize}deg, 0)`};
+  transform: ${({ $index, $prize }) => `  rotate(110deg) `};
   width: 100%;
   height: 100%;
   display: flex;
@@ -99,10 +105,13 @@ const Turn = ({ prize = 8 }) => {
       </Arrow>
       <Dialog>
         {prizeDatas.map((prizeData, i) => (
-          <>
-            <Item key={i} $index={i} $prize={prize}></Item>
-            <ItemsWord> {prizeData.prizeName}</ItemsWord>
-          </>
+          <Items key={i} $index={i} $prize={prize}>
+            <Item $index={i} $prize={prize}></Item>
+            <ItemsWord $index={i} $prize={prize}>
+              {" "}
+              {prizeData.prizeName}
+            </ItemsWord>
+          </Items>
         ))}
       </Dialog>
       <StartBtn />

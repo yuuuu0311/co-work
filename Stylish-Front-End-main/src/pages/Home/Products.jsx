@@ -125,15 +125,21 @@ function Products() {
     useInfiniteScroll(loadMoreProducts);
 
     // sort
+<<<<<<< HEAD
+    // const sortedArray = products.slice().sort((a, b) => {
+    //     return a.price - b.price;
+    // });
+=======
     const sortedArray = products.slice().sort((a, b) => {
         return a.price - b.price;
     });
 
     // console.log(sortedArray);
+>>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 
     return (
         <Wrapper>
-            {products.map(({ id, main_image, colors, title, price }) => (
+            {products.map(({ id, main_image, colors, title, price, sold }) => (
                 <Product key={id} to={`/products/${id}`}>
                     <ProductImage src={main_image} />
                     <ProductColors>
@@ -143,7 +149,7 @@ function Products() {
                     </ProductColors>
                     <ProductTitle>{title}</ProductTitle>
                     <ProductPrice>TWD.{price}</ProductPrice>
-                    <ProductSold>已售出{markSoldNum}件</ProductSold>
+                    <ProductSold>已售出{sold}件</ProductSold>
                 </Product>
             ))}
             {isLoading && <Loading type="spinningBubbles" color="#313538" />}

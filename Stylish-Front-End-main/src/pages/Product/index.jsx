@@ -18,7 +18,8 @@ const Wrapper = styled.div`
 `;
 
 const MainImage = styled.img`
-  width: 560px;
+  width: 40%;
+  object-fit: contain;
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -203,21 +204,9 @@ const RecommendTitle = styled.div`
   }
 `;
 
-const RecommendContent = styled.div`
-  line-height: 30px;
-  margin-top: 28px;
-  font-size: 20px;
-  color: #3f3a3a;
-
-  @media screen and (max-width: 1279px) {
-    line-height: 25px;
-    margin-top: 12px;
-    font-size: 14px;
-  }
-`;
-
 const RecommendMainImage = styled.img`
   width: 202px;
+  cursor: pointer;
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -280,11 +269,21 @@ const RecommendSection = styled.div`
 const Recommendblock = styled.div``;
 
 const CommentStar = styled.div`
+  display: flex;
   margin-top: 20px;
+  align-items: center;
+
+    p {
+    font-size: 20px;
+    margin-right: 15px;
+  }
+
+  pre{
+margin-left: 15px;
+  }
 `;
 
 const CommentUser = styled.div`
-
   @media screen and (max-width: 1279px) {
     font-size: 25px;
     margin-bottom: 15px;
@@ -298,7 +297,6 @@ const ClientsCommentsSection = styled.div`
 
 const ClientComent = styled.div`
   margin-top: 2rem;
-
   width: 50%;
 `;
 
@@ -332,58 +330,52 @@ const Image = styled.img`
   }
 `;
 
-const recommendData = {
-  data: {
-    // 原先商品之detail...，以下為需要新增的項目
-    stars: 4,
-    comment: [
-      {
-        name: "王小姐",
-        star: 3,
-      },
-      {
-        name: "陳先生",
-        star: 5,
-      },
-      // ...
-    ],
-    recommend: [
-      {
-        id: 201807201824,
-        title: "前開衩扭結洋裝",
-        price: 799,
-        main_image:
-          "https://api.appworks-school.tw/assets/201807201824/main.jpg",
-      },
-      {
-        id: 201807201824,
-        title: "時尚輕鬆休閒西裝",
-        price: 2399,
-        main_image:
-          "https://api.appworks-school.tw/assets/201807242216/main.jpg",
-      },
-      {
-        id: 201807201824,
-        title: "經典牛仔帽",
-        price: 799,
-        main_image:
-          "https://api.appworks-school.tw/assets/201807242230/main.jpg",
-      },
-      {
-        id: 201807201824,
-        title: "柔軟氣質羊毛圍巾",
-        price: 1799,
-        main_image:
-          "https://api.appworks-school.tw/assets/201807242234/main.jpg",
-      },
-      // ...
-    ],
-  },
-};
+// const recommendData = {
+//   data: {
+//     stars: 4,
+//     recommend: [
+//       {
+//         id: 201807201824,
+//         title: "前開衩扭結洋裝",
+//         price: 799,
+//         main_image:
+//           "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+//       },
+//       {
+//         id: 201807242216,
+//         title: "時尚輕鬆休閒西裝",
+//         price: 2399,
+//         main_image:
+//           "https://api.appworks-school.tw/assets/201807242216/main.jpg",
+//       },
+//       {
+//         id: 201807242230,
+//         title: "經典牛仔帽",
+//         price: 799,
+//         main_image:
+//           "https://api.appworks-school.tw/assets/201807242230/main.jpg",
+//       },
+//       {
+//         id: 201807242234,
+//         title: "柔軟氣質羊毛圍巾",
+//         price: 1799,
+//         main_image:
+//           "https://api.appworks-school.tw/assets/201807242234/main.jpg",
+//       },
+//       // ...
+//     ],
+//   },
+// };
 
 function Product() {
   const [product, setProduct] = useState();
   const { id } = useParams();
+  const [comments, setComments] = useState([]);
+  const [recommend, setRecommend] = useState([]);
+
+  const handleClick = (productId) => {
+    window.location.href = `/products/${productId}`;
+  };
 
   useEffect(() => {
     async function getProduct() {
@@ -393,7 +385,30 @@ function Product() {
     getProduct();
   }, [id]);
 
+  useEffect(() => {
+    async function getUserComents() {
+      const { data } = await api.getUserComents(id);
+      setComments(data.comment);
+    }
+    getUserComents();
+  }, []);
+
+  // console.log(comments);
+
+
+  useEffect(() => {
+    async function recommendData() {console.log('data');
+      const  data  = await api.recommendData(id); console.log('data');
+      setRecommend(data);
+    }
+    recommendData();
+  },[])
+
+  console.log(recommend);
+
+  if (!comments) return null;
   if (!product) return null;
+  if (!recommend) return null;
 
   return (
     <Wrapper>
@@ -401,22 +416,26 @@ function Product() {
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
+        <CommentStar>
+          <p>4</p>
+          <Stars size={30} rate={product.star} space={8} />
+          <p><pre>評論數字(51)</pre></p>
+        </CommentStar>
         <Price>TWD.{product.price}</Price>
         <ProductVariants product={product} />
-        <Note>{product.note}</Note>
+        <Note>{product.note === "NULL" ? "" : product.note}</Note>
         <Texture>{product.texture}</Texture>
-        <Description>{product.description}</Description>
+        <Description>
+          {product.description === "NULL" ? "" : product.description}
+        </Description>
         <Place>素材產地 / {product.place}</Place>
         <Place>加工產地 / {product.place}</Place>
-        <CommentStar>
-          <Stars size={30} rate={4} space={8} />
-        </CommentStar>
       </Details>
 
       <Story>
         <StoryTitle>顧客評價</StoryTitle>
         <ClientsCommentsSection>
-          {recommendData.data.comment.map((item) => {
+          {comments.map((item) => {
             return (
               <ClientComent>
                 <ClientName>{item.name}</ClientName>
@@ -432,13 +451,17 @@ function Product() {
       <Recommend>
         <RecommendTitle>你可能會喜歡</RecommendTitle>
         <RecommendSection>
-          {recommendData.data.recommend.map((item, index) => {
+          {recommend.map((product, index) => {
             return (
               <Recommendblock>
-                <RecommendMainImage src={item.main_image} />
-                <RecommendProductTitle>{item.title}</RecommendProductTitle>
-                <RecommendID>{item.id}</RecommendID>
-                <RecommendPrice>TWD.{item.price}</RecommendPrice>
+                <RecommendMainImage
+                  src={product.main_image}
+                  onClick={() => handleClick(product.id)}
+                />
+
+                <RecommendProductTitle>{product.title}</RecommendProductTitle>
+                <RecommendID>{product.id}</RecommendID>
+                <RecommendPrice>TWD.{product.price}</RecommendPrice>
               </Recommendblock>
             );
           })}
@@ -447,7 +470,9 @@ function Product() {
 
       <Story>
         <StoryTitle>細部說明</StoryTitle>
-        <StoryContent>{product.story}</StoryContent>
+        <StoryContent>
+          {product.story === "NULL" ? "" : product.story}
+        </StoryContent>
       </Story>
       <Images>
         {product.images.map((image, index) => (

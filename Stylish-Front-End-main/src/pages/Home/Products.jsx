@@ -46,7 +46,8 @@ const ProductColors = styled.div`
 const ProductColor = styled.div`
     width: 24px;
     height: 24px;
-    box-shadow: 0px 0px 1px #bbbbbb;
+    opacity: 35%;
+    box-shadow: 0px 0px 3px #4e4e4e;
     background-color: ${(props) => props.$colorCode};
 
     @media screen and (max-width: 1279px) {

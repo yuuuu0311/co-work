@@ -10,6 +10,7 @@ import Bid from "./pages/Bid";
 import ThankYou from "./pages/ThankYou";
 import LiveStream from "./pages/LiveStream";
 
+
 import { initializeApp } from "firebase/app";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

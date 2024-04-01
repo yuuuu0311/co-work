@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bidders Component</title>
+    <script>
+      function click() {}
+
+      function increaseQuantity() {
+        const quantityDisplay = document.querySelector(".quantity");
+        let quantity = parseInt(quantityDisplay.textContent, 10);
+        quantity += 100; // Adjust increment as needed
+        quantityDisplay.textContent = quantity;
+      }
+
+      function decreaseQuantity() {
+        const quantityDisplay = document.querySelector(".quantity");
+        let quantity = parseInt(quantityDisplay.textContent, 10);
+        quantity -= 100; // Adjust decrement as needed
+        if (quantity < 0) quantity = 0; // Prevent negative quantities
+        quantityDisplay.textContent = quantity;
+      }
+
+      function handleBidSubmit() {
+        const text = document.getElementById("text").textContent;
+        console.log(text);
+        // alert("Bid submitted. Add your submission logic here.");
+      }
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="up">
+      <div class="option">
+        <div class="quantity-selector">
+          <div class="math-button" onclick="decreaseQuantity()">-</div>
+          <div class="quantity" id="text">0</div>
+          <div class="math-button" onclick="increaseQuantity()">+</div>
+        </div>
+      </div>
+      <button class="add-to-bid" onclick="handleBidSubmit()">
+        送出競標價格
+      </button>
+    </div>
+
+    <div class="warp-bidders">
+      <div class="bidders-items">
+        <div class="bidders-countdown">限時搶購倒數 24:00:00</div>
+        <div class="bidders-item-detail">
+          <h1>起標價</h1>
+          <p>TWD. 100</p>
+          <!-- Example price, replace with your dynamic value -->
+        </div>
+        <hr />
+        <div class="bidders-item-detail">
+          <h1>最高競標價</h1>
+          <p>TWD. 200</p>
+          <!-- Example price, replace with your dynamic value -->
+        </div>
+        <hr />
+        <div class="bidders-item-detail">
+          <h1>競標人數</h1>
+          <p>5人</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="warp-bidders">
+      <div class="bidders-record">
+        <div class="bidders-record-title">競標紀錄</div>
+        <!-- Example record item, repeat or dynamically generate similar blocks as needed -->
+        <div class="bidders-record-items">
+          <div class="bidders-rocord-item">
+            <div class="user-icon"></div>
+            <h1>使用者1</h1>
+            <p>TWD. 300</p>
+          </div>
+          <div class="bidders-rocord-item">
+            <div class="user-icon"></div>
+            <h1>使用者1</h1>
+            <p>TWD. 300</p>
+          </div>
+          <div class="bidders-rocord-item">
+            <div class="user-icon"></div>
+            <h1>使用者1</h1>
+            <p>TWD. 300</p>
+          </div>
+          <div class="bidders-rocord-item">
+            <div class="user-icon"></div>
+            <h1>使用者1</h1>
+            <p>TWD. 300</p>
+          </div>
+          <!-- Example bid, replace with your dynamic values -->
+        </div>
+        <!-- Add more bidders-record-items as needed -->
+      </div>
+    </div>
+  </body>
+</html>

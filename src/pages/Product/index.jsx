@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import api from "../../utils/api";
@@ -15,6 +16,10 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1279px) {
     padding: 0 0 32px;
   }
+`;
+
+const WarpProductDetails = styled.div`
+  display: flex;
 `;
 
 const MainImage = styled.img`
@@ -107,7 +112,7 @@ const Texture = styled(Detail)`
 `;
 
 const Description = styled(Detail)`
-  white-space: pre;
+  /* white-space: pre; */
 `;
 
 const Place = styled(Detail)`
@@ -263,7 +268,7 @@ const RecommendPrice = styled.div`
 const RecommendSection = styled.div`
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
 const Recommendblock = styled.div``;
@@ -273,13 +278,27 @@ const CommentStar = styled.div`
   margin-top: 20px;
   align-items: center;
 
-    p {
+  p {
     font-size: 20px;
     margin-right: 15px;
   }
 
-  pre{
-margin-left: 15px;
+  span {
+    margin-left: 15px;
+  }
+
+  @media screen and (max-width: 1279px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    p {
+      margin-bottom: 12px;
+      margin-top: 15px;
+    }
+
+    span {
+      margin-left: 0px;
+    }
   }
 `;
 
@@ -330,52 +349,11 @@ const Image = styled.img`
   }
 `;
 
-// const recommendData = {
-//   data: {
-//     stars: 4,
-//     recommend: [
-//       {
-//         id: 201807201824,
-//         title: "前開衩扭結洋裝",
-//         price: 799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807201824/main.jpg",
-//       },
-//       {
-//         id: 201807242216,
-//         title: "時尚輕鬆休閒西裝",
-//         price: 2399,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242216/main.jpg",
-//       },
-//       {
-//         id: 201807242230,
-//         title: "經典牛仔帽",
-//         price: 799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242230/main.jpg",
-//       },
-//       {
-//         id: 201807242234,
-//         title: "柔軟氣質羊毛圍巾",
-//         price: 1799,
-//         main_image:
-//           "https://api.appworks-school.tw/assets/201807242234/main.jpg",
-//       },
-//       // ...
-//     ],
-//   },
-// };
-
 function Product() {
   const [product, setProduct] = useState();
   const { id } = useParams();
   const [comments, setComments] = useState([]);
   const [recommend, setRecommend] = useState([]);
-
-  const handleClick = (productId) => {
-    window.location.href = `/products/${productId}`;
-  };
 
   useEffect(() => {
     async function getProduct() {
@@ -393,18 +371,13 @@ function Product() {
     getUserComents();
   }, []);
 
-  // console.log(comments);
-
-
   useEffect(() => {
-    async function recommendData() {console.log('data');
-      const  data  = await api.recommendData(id); console.log('data');
-      setRecommend(data);
+    async function fetchRecommendData() {
+      const response = await api.recommendData(id);
+      setRecommend(response.recommend);
     }
-    recommendData();
-  },[])
-
-  console.log(recommend);
+    fetchRecommendData();
+  }, []);
 
   if (!comments) return null;
   if (!product) return null;
@@ -412,32 +385,36 @@ function Product() {
 
   return (
     <Wrapper>
-      <MainImage src={product.main_image} />
-      <Details>
-        <Title>{product.title}</Title>
-        <ID>{product.id}</ID>
-        <CommentStar>
-          <p>4</p>
-          <Stars size={30} rate={product.star} space={8} />
-          <p><pre>評論數字(51)</pre></p>
-        </CommentStar>
-        <Price>TWD.{product.price}</Price>
-        <ProductVariants product={product} />
-        <Note>{product.note === "NULL" ? "" : product.note}</Note>
-        <Texture>{product.texture}</Texture>
-        <Description>
-          {product.description === "NULL" ? "" : product.description}
-        </Description>
-        <Place>素材產地 / {product.place}</Place>
-        <Place>加工產地 / {product.place}</Place>
-      </Details>
+      <WarpProductDetails>
+        <MainImage src={product.main_image} />
+        <Details>
+          <Title>{product.title}</Title>
+          <ID>{product.id}</ID>
+          <CommentStar>
+            <p>4</p>
+            <Stars size={30} rate={product.star} space={8} />
+            <p>
+              <span>評論數字(51)</span>
+            </p>
+          </CommentStar>
+          <Price>TWD.{product.price}</Price>
+          <ProductVariants product={product} />
+          <Note>{product.note === "NULL" ? "" : product.note}</Note>
+          <Texture>{product.texture}</Texture>
+          <Description>
+            {product.description === "NULL" ? "" : product.description}
+          </Description>
+          <Place>素材產地 / {product.place}</Place>
+          <Place>加工產地 / {product.place}</Place>
+        </Details>
+      </WarpProductDetails>
 
       <Story>
         <StoryTitle>顧客評價</StoryTitle>
         <ClientsCommentsSection>
-          {comments.map((item) => {
+          {comments?.map((item) => {
             return (
-              <ClientComent>
+              <ClientComent key={item.user_id}>
                 <ClientName>{item.name}</ClientName>
                 <CommentUser>
                   <Stars size={25} rate={item.star} space={6} />
@@ -451,20 +428,35 @@ function Product() {
       <Recommend>
         <RecommendTitle>你可能會喜歡</RecommendTitle>
         <RecommendSection>
-          {recommend.map((product, index) => {
-            return (
-              <Recommendblock>
-                <RecommendMainImage
-                  src={product.main_image}
-                  onClick={() => handleClick(product.id)}
-                />
-
-                <RecommendProductTitle>{product.title}</RecommendProductTitle>
-                <RecommendID>{product.id}</RecommendID>
-                <RecommendPrice>TWD.{product.price}</RecommendPrice>
-              </Recommendblock>
-            );
-          })}
+          {recommend.length == 0
+            ? recommend.map((item, index) => {
+                return (
+                  <Link to={`/products/${item.id}`} key={item.id}>
+                    <Recommendblock data-id={item.id}>
+                      <RecommendMainImage src={item.main_image} />
+                      <RecommendProductTitle>
+                        {item.title}
+                      </RecommendProductTitle>
+                      <RecommendID>{item.id}</RecommendID>
+                      <RecommendPrice>TWD.{item.price}</RecommendPrice>
+                    </Recommendblock>
+                  </Link>
+                );
+              })
+            : recommend.map((item, index) => {
+                return (
+                  <Link to={`/products/${item.id}`} key={item.id}>
+                    <Recommendblock data-id={item.id}>
+                      <RecommendMainImage src={item.main_image} />
+                      <RecommendProductTitle>
+                        {item.title}
+                      </RecommendProductTitle>
+                      <RecommendID>{item.id}</RecommendID>
+                      <RecommendPrice>TWD.{item.price}</RecommendPrice>
+                    </Recommendblock>
+                  </Link>
+                );
+              })}
         </RecommendSection>
       </Recommend>
 

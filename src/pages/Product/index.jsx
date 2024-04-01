@@ -15,15 +15,20 @@ const Wrapper = styled.div`
 
     @media screen and (max-width: 1279px) {
         padding: 0 0 32px;
+        justify-content: center;
     }
 `;
 
 const WarpProductDetails = styled.div`
     display: flex;
+
+    @media screen and (max-width: 1279px) {
+        display: block;
+    }
 `;
 
 const MainImage = styled.img`
-    width: 40%;
+    width: 560px;
     object-fit: contain;
 
     @media screen and (max-width: 1279px) {
@@ -288,16 +293,9 @@ const CommentStar = styled.div`
     }
 
     @media screen and (max-width: 1279px) {
-        flex-direction: column;
-        align-items: flex-start;
-
         p {
-            margin-bottom: 12px;
-            margin-top: 15px;
-        }
-
-        span {
-            margin-left: 0px;
+            font-size: 20px;
+            margin-right: 15px;
         }
     }
 `;
@@ -352,6 +350,7 @@ function Product() {
     const { id } = useParams();
     const [comments, setComments] = useState([]);
     const [recommend, setRecommend] = useState([]);
+    const [avgStars, setAvgStars] = useState(null);
 
     useEffect(() => {
         async function getProduct() {
@@ -365,6 +364,8 @@ function Product() {
         async function getUserComents() {
             const { data } = await api.getUserComents(id);
             setComments(data.comment);
+            setAvgStars(data.avg_stars);
+            console.log(data.avg_stars);
         }
         getUserComents();
     }, []);
@@ -388,13 +389,15 @@ function Product() {
                 <Details>
                     <Title>{product.title}</Title>
                     <ID>{product.id}</ID>
+
                     <CommentStar>
-                        <p>4</p>
-                        <Stars size={30} rate={product.star} space={8} />
+                        <p>{avgStars}</p>
+                        <Stars size={30} rate={avgStars} space={8} />
                         <p>
-                            <span>評論數字(51)</span>
+                            <span>評論數({comments.length})</span>
                         </p>
                     </CommentStar>
+
                     <Price>TWD.{product.price}</Price>
                     <ProductVariants product={product} />
                     <Note>{product.note === "NULL" ? "" : product.note}</Note>

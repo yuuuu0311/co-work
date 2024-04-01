@@ -6,7 +6,6 @@ import very from "./very.jpg";
 import normal from "./normal.jpg";
 import strong from "./strong.jpg";
 
-import api from "../../utils/api";
 import useAIsize from "../../utils/hooks/useAIsize";
 
 const BackDrop = styled.div`
@@ -75,14 +74,14 @@ const Button = styled.div`
 
 const Content = styled.div`
     flex: 1;
-    padding: 2rem;
+    padding: 5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1.75rem;
 
     @media screen and (max-width: 1279px) {
-        padding: 1rem;
+        padding: 5rem;
         gap: 1.5rem;
     }
 `;
@@ -139,7 +138,8 @@ const Lable = styled.label`
 
 const ShapeWrap = styled.div`
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
+    margin-top: 2rem;
 `;
 
 const ShapeOption = styled.label`
@@ -163,7 +163,7 @@ const ShapeOption = styled.label`
         text-align: center;
         display: inline-block;
         width: 100%;
-        opacity: 0.35;
+        opacity: 0.15;
     }
 
     input:focus ~ span {

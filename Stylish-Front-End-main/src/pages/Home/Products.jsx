@@ -125,17 +125,9 @@ function Products() {
     useInfiniteScroll(loadMoreProducts);
 
     // sort
-<<<<<<< HEAD
     // const sortedArray = products.slice().sort((a, b) => {
     //     return a.price - b.price;
     // });
-=======
-    const sortedArray = products.slice().sort((a, b) => {
-        return a.price - b.price;
-    });
-
-    // console.log(sortedArray);
->>>>>>> 96bf307d4b139d18606167732f86d833182fd18f
 
     return (
         <Wrapper>

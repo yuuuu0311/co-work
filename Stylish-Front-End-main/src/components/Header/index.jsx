@@ -225,6 +225,29 @@ const PageLinkText = styled.div`
   }
 `;
 
+const BidBanner = styled.a`
+  letter-spacing: 4px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(200%);
+  z-index: 10;
+  width: 100%;
+  height: 40px;
+  background-color: #df5d35;
+  box-shadow: 0px 4px 7px #444;
+  font-size: 24px;
+  color: #fff;
+  padding-left: 40px;
+  line-height: 40px;
+  border-radius: 0px 0px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+`;
+
 const categories = [
   {
     name: "women",
@@ -293,6 +316,10 @@ function Header() {
           <PageLinkText>會員</PageLinkText>
         </PageLink>
       </PageLinks>
+      <BidBanner href="/bid">
+        <p>「永恆水晶項鍊」競標開始！</p>
+        <p>24:00:00</p>
+      </BidBanner>
     </Wrapper>
   );
 }

@@ -134,10 +134,6 @@ function Carousel() {
 
   return (
     <Wrapper>
-      <BidBanner href="/bid">
-        <p>限時搶購倒數</p>
-        <p>24:00:00</p>
-      </BidBanner>
       {campaigns.map(({ picture, product_id, story }, index) => (
         <Campaign
           $isActive={index === activeCampaignIndex}

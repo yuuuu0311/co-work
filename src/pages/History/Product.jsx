@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Stars from "../../components/Stars";
 import CommentStars from "./CommentStars";
-import { AuthContext } from "../../context/authContext";
 
 import styled from "styled-components";
 
@@ -59,16 +58,17 @@ const ProductComment = styled.div`
 
 function Product({ product }) {
   const [starIndex, setStarIndex] = useState(0); // 這個是user商品的星星數，因為是index所以送出時應該要再加1
-  const { user } = useContext(AuthContext);
+  const [isRate, setIsRate] = useState(false);
 
   async function handleComment(e) {
     e.preventDefault();
+    setIsRate(true);
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        user_id: user.id,
+        user_id: 10273,
         product_id: product.id,
         star: starIndex + 1,
       }),
@@ -79,7 +79,6 @@ function Product({ product }) {
       requestOptions
     );
     const data = await response.json();
-    setPostRes(data);
   }
 
   return (
@@ -93,17 +92,19 @@ function Product({ product }) {
         <ProductInfo>顏色｜{product.color.name}</ProductInfo>
         <ProductInfo>尺寸｜{product.size}</ProductInfo>
         <ProductCommentWarp>
-          {product.star === 0 ? (
+          {product.star !== 0 || isRate ? (
             <ProductComment>
-              <ProductInfo>請填寫評論</ProductInfo>
-              <CommentStars starIndex={starIndex} setStarIndex={setStarIndex} />
-              {/* <input type="text" placeholder="請輸入評論" /> */}
-              <button onClick={handleComment}>送出</button>
+              <p>已填寫評論</p>
+              <Stars
+                rate={product.star === 0 ? starIndex + 1 : product.star}
+                size={20}
+              />
             </ProductComment>
           ) : (
             <ProductComment>
-              <p>已填寫評論</p>
-              <Stars rate={product.star} size={20} />
+              <ProductInfo>請填寫評論</ProductInfo>
+              <CommentStars starIndex={starIndex} setStarIndex={setStarIndex} />
+              <button onClick={handleComment}>送出</button>
             </ProductComment>
           )}
         </ProductCommentWarp>

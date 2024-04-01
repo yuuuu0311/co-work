@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -377,6 +377,10 @@ function Product() {
         }
         fetchRecommendData();
     }, []);
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    });
 
     if (!comments) return null;
     if (!product) return null;

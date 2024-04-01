@@ -17,8 +17,13 @@ const Wrapper = styled.div`
   }
 `;
 
+const WarpProductDetails = styled.div`
+  display: flex;
+`;
+
 const MainImage = styled.img`
-  width: 40%;
+  width: 560px;
+
   object-fit: contain;
 
   @media screen and (max-width: 1279px) {
@@ -273,13 +278,13 @@ const CommentStar = styled.div`
   margin-top: 20px;
   align-items: center;
 
-    p {
+  p {
     font-size: 20px;
     margin-right: 15px;
   }
 
-  pre{
-margin-left: 15px;
+  pre {
+    margin-left: 15px;
   }
 `;
 
@@ -330,7 +335,6 @@ const Image = styled.img`
   }
 `;
 
-
 function Product() {
   const [product, setProduct] = useState();
   const { id } = useParams();
@@ -357,15 +361,13 @@ function Product() {
     getUserComents();
   }, []);
 
-useEffect(() => {
-  async function fetchRecommendData() {
-    const response = await api.recommendData(id);
-    setRecommend(response.recommend);
-  }
-  fetchRecommendData();
-}, []);
-
-
+  useEffect(() => {
+    async function fetchRecommendData() {
+      const response = await api.recommendData(id);
+      setRecommend(response.recommend);
+    }
+    fetchRecommendData();
+  }, []);
 
   if (!comments) return null;
   if (!product) return null;
@@ -373,25 +375,29 @@ useEffect(() => {
 
   return (
     <Wrapper>
-      <MainImage src={product.main_image} />
-      <Details>
-        <Title>{product.title}</Title>
-        <ID>{product.id}</ID>
-        <CommentStar>
-          <p>4</p>
-          <Stars size={30} rate={product.star} space={8} />
-          <p><pre>評論數字(51)</pre></p>
-        </CommentStar>
-        <Price>TWD.{product.price}</Price>
-        <ProductVariants product={product} />
-        <Note>{product.note === "NULL" ? "" : product.note}</Note>
-        <Texture>{product.texture}</Texture>
-        <Description>
-          {product.description === "NULL" ? "" : product.description}
-        </Description>
-        <Place>素材產地 / {product.place}</Place>
-        <Place>加工產地 / {product.place}</Place>
-      </Details>
+      <WarpProductDetails>
+        <MainImage src={product.main_image} />
+        <Details>
+          <Title>{product.title}</Title>
+          <ID>{product.id}</ID>
+          <CommentStar>
+            <p>4</p>
+            <Stars size={30} rate={product.star} space={8} />
+            <p>
+              <pre>評論數字(51)</pre>
+            </p>
+          </CommentStar>
+          <Price>TWD.{product.price}</Price>
+          <ProductVariants product={product} />
+          <Note>{product.note === "NULL" ? "" : product.note}</Note>
+          <Texture>{product.texture}</Texture>
+          <Description>
+            {product.description === "NULL" ? "" : product.description}
+          </Description>
+          <Place>素材產地 / {product.place}</Place>
+          <Place>加工產地 / {product.place}</Place>
+        </Details>
+      </WarpProductDetails>
 
       <Story>
         <StoryTitle>顧客評價</StoryTitle>

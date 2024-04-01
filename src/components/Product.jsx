@@ -63,18 +63,19 @@ function Product({ product }) {
   async function handleComment(e) {
     e.preventDefault();
 
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     user_id: 10273,
-    //     product_id: 201807201824,
-    //     star: 2,
-    //   }),
-    // };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: 10273,
+        product_id: 201807201824,
+        star: 2,
+      }),
+    };
 
     const response = await fetch(
-      "https://smillzy.net/api/1.0/report/orders?id=10273"
+      "https://smillzy.net/api/1.0/report/orders?id=10273",
+      requestOptions
     );
     const data = await response.json();
     setPostRes(data);

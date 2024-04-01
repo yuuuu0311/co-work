@@ -4,6 +4,10 @@ import styled from "styled-components";
 import api from "../../utils/api";
 import ProductBidBox from "./ProductBidBox";
 import Bidders from "./Bidders";
+import { db } from "../../utils/firestore";
+import image from "./image.png";
+import detailImage1 from "./0.png";
+import detailImage2 from "./1.png";
 
 const Wrapper = styled.div`
   max-width: 960px;
@@ -19,6 +23,7 @@ const Wrapper = styled.div`
 
 const MainImage = styled.img`
   width: 560px;
+  background-image: url(${image});
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -170,6 +175,7 @@ const StoryContent = styled.div`
 
 const Images = styled.div`
   margin: 30px 0 0;
+  width: 100%;
 
   @media screen and (max-width: 1279px) {
     margin: 20px 24px 0;
@@ -177,7 +183,34 @@ const Images = styled.div`
   }
 `;
 
-const Image = styled.img`
+const Image1 = styled.img`
+  background-image: url(${detailImage1});
+
+  width: 100%;
+  height: 540px;
+  margin-top: 30px;
+
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
+
+  & + & {
+    margin-top: 30px;
+
+    @media screen and (max-width: 1279px) {
+      margin-top: 20px;
+    }
+  }
+`;
+
+const Image2 = styled.img`
+  background-image: url(${detailImage2});
+
+  width: 100%;
+  margin-top: 30px;
+
+  height: 540px;
+
   @media screen and (max-width: 1279px) {
     width: 100%;
   }
@@ -223,7 +256,8 @@ function Bid() {
 
   return (
     <Wrapper>
-      <MainImage src={product.main_image} />
+      {/* <MainImage src={product.main_image} /> */}
+      <MainImage />
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
@@ -241,9 +275,8 @@ function Bid() {
         <StoryContent>{product.story}</StoryContent>
       </Story>
       <Images>
-        {product.images.map((image, index) => (
-          <Image src={image} key={index} />
-        ))}
+        <Image1 />
+        <Image2 />
       </Images>
     </Wrapper>
   );

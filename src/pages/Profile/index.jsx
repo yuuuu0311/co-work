@@ -52,39 +52,39 @@ function Profile() {
 
     const renderContent = () => {
         if (loading) return <Loading type="spinningBubbles" color="#313538" />;
-        if (isLogin)
-            return (
-                <>
-                    <Photo src={user.picture} />
+        // if (isLogin)
+        return (
+            <>
+                {/* <Photo src={user.picture} /> */}
 
-                    <Content>{user.name}</Content>
-                    <Content>{user.email}</Content>
-                    <LogoutButton onClick={logout}>登出</LogoutButton>
+                {/* <Content>{user.name}</Content> */}
+                {/* <Content>{user.email}</Content> */}
+                {/* <LogoutButton onClick={logout}>登出</LogoutButton> */}
 
-                    <Content>
-                        <Title>我的訂單</Title>
-                        <Container>
-                            <Button path={"/history"} icon={FaBitcoin}>
-                                待付款
-                            </Button>
-                            <Button path={"/history"} icon={FaBiking}>
-                                待出貨
-                            </Button>
-                            <Button path={"/history"} icon={FaAddressCard}>
-                                待評價
-                            </Button>
-                            <Button path={"/history"} icon={FaBomb}>
-                                待簽收
-                            </Button>
-                        </Container>
-                    </Content>
-                </>
-            );
-        return <LogoutButton onClick={login}>登入</LogoutButton>;
+                <Content>
+                    <Title>我的訂單</Title>
+                    <Container>
+                        <Button path={"/history"} icon={FaBitcoin}>
+                            待付款
+                        </Button>
+                        <Button path={"/history"} icon={FaBiking}>
+                            待出貨
+                        </Button>
+                        <Button path={"/history"} icon={FaAddressCard}>
+                            待評價
+                        </Button>
+                        <Button path={"/history"} icon={FaBomb}>
+                            待簽收
+                        </Button>
+                    </Container>
+                </Content>
+            </>
+        );
+        // return <LogoutButton onClick={login}>登入</LogoutButton>;
     };
     return (
         <Wrapper>
-            <Title>會員基本資訊</Title>
+            {/* <Title>會員基本資訊</Title> */}
             {renderContent()}
         </Wrapper>
     );

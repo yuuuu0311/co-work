@@ -23,6 +23,7 @@ export const AuthContextProvider = ({ children }) => {
             provider: "facebook",
             access_token: accessToken,
         });
+
         const { access_token: tokenFromServer, user: userData } = data;
         setUser(userData);
         setJwtToken(tokenFromServer);
@@ -35,6 +36,7 @@ export const AuthContextProvider = ({ children }) => {
         const checkAuthStatus = async () => {
             await fb.init();
             const response = await fb.getLoginStatus();
+            console.log(response);
             if (response.status === "connected") {
                 handleLoginResponse(response);
                 setLoading(false);

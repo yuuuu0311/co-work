@@ -74,6 +74,28 @@ const api = {
         );
         return await response.json();
     },
+
+    async getSize({ weight, height, shape }) {
+        console.log(weight, height, shape);
+        const headers = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        };
+
+        const response = await fetch(`https://smillzy.net//python/AI`, {
+            method: "POST",
+            headers: headers,
+
+            body: JSON.stringify({
+                user_id: "111",
+                weight,
+                height,
+                shape,
+                product_id: "201902192273",
+            }),
+        });
+        return await response.json();
+    },
 };
 
 export default api;

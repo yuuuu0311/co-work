@@ -245,7 +245,7 @@ function ProductVariants({ product }) {
                         </Size>
                     );
                 })}
-                {product.category === "accessories" || (
+                {product.category === "ACCESSORIES" || (
                     <Size
                         $isDisabled={selectedColorCode === undefined}
                         onClick={() => {
@@ -279,7 +279,15 @@ function ProductVariants({ product }) {
                 </QuantitySelector>
             </Option>
             <AddToCart onClick={addToCart}>{addToCartButtonText()}</AddToCart>
-            {dialog ? <SizeDialog showDialog={showDialog} /> : <></>}
+            {dialog ? (
+                <SizeDialog
+                    showDialog={showDialog}
+                    selectedSize={selectedSize}
+                    setSelectedSize={setSelectedSize}
+                />
+            ) : (
+                <></>
+            )}
         </>
     );
 }

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+useState;
 
 const Wrapper = styled.div`
   margin-top: 100px;
@@ -14,7 +15,6 @@ const Arrow = styled.svg`
   left: 50%;
   height: 50px;
   width: 50px;
-
   z-index: 20;
   color: #966565;
   transform: rotate(90deg) translate(50%, 50%);
@@ -26,13 +26,6 @@ const Dialog = styled.ul`
   height: 300px;
   position: relative;
   overflow: hidden;
-
-  &:nth-child(even) {
-    background-color: #f8f3f2;
-  }
-  &:nth-child(odd) {
-    background-color: #a07e61;
-  }
 `;
 
 const Items = styled.div`
@@ -50,25 +43,26 @@ const Item = styled.li`
   height: 100%;
   transform-origin: right bottom;
   background-color: ${({ $index }) =>
-    $index % 2 === 0 ? "#a07e61" : "#f8f3f2"};
-  transform: ${({ $index, $prize }) => ` skew(${90 - 360 / $prize}deg, 0)`};
+    $index % 2 === 0 ? "#c1a38a" : "#f8f3f2"};
+  transform: ${({ $prize }) => ` skew(${90 - 360 / $prize}deg, 0)`};
 `;
 
 const ItemsWord = styled.p`
   position: absolute;
   padding-left: 30px;
-  top: 100%;
-  left: 30%;
+  top: 20%;
+  right: 20%;
   transform-origin: center center;
-  transform: ${({ $index, $prize }) => `  rotate(110deg) `};
+  transform: rotate(25deg);
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #070707;
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
+  color: #2b2b2b;
+  font-weight: 600;
 `;
 
 const StartBtn = styled.div`
@@ -82,21 +76,28 @@ const StartBtn = styled.div`
   background-color: #402c2c;
   cursor: pointer;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
 `;
 
 const prizeDatas = [
   { prizeId: "1", prizeName: "9折", deg: 337.5 },
   { prizeId: "2", prizeName: "8折", deg: 112.5 },
-  { prizeId: "3", prizeName: "85折", deg: 247.5 },
+  { prizeId: "3", prizeName: "未中獎", deg: 247.5 },
   { prizeId: "4", prizeName: "精美小禮", deg: 67.5 },
   { prizeId: "5", prizeName: "6折", deg: 292.5 },
   { prizeId: "6", prizeName: "95折", deg: 157.5 },
   { prizeId: "7", prizeName: "未中獎", deg: 22.5 },
-  { prizeId: "8", prizeName: "未中獎", deg: 202.5 },
+  { prizeId: "8", prizeName: "85折", deg: 202.5 },
 ];
 
 const Turn = ({ prize = 8 }) => {
   const initDeg = 1800;
+  const [deg, setDeg] = useState(initDeg);
 
   return (
     <Wrapper>
@@ -114,7 +115,7 @@ const Turn = ({ prize = 8 }) => {
           </Items>
         ))}
       </Dialog>
-      <StartBtn />
+      <StartBtn>領取折扣</StartBtn>
     </Wrapper>
   );
 };

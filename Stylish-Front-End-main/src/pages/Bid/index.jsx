@@ -5,6 +5,9 @@ import api from "../../utils/api";
 import ProductBidBox from "./ProductBidBox";
 import Bidders from "./Bidders";
 import { db } from "../../utils/firestore";
+import image from "./image.png";
+import detailImage1 from "./0.png";
+import detailImage2 from "./1.png";
 
 const Wrapper = styled.div`
   max-width: 960px;
@@ -20,6 +23,7 @@ const Wrapper = styled.div`
 
 const MainImage = styled.img`
   width: 560px;
+  background-image: url(${image});
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -224,7 +228,8 @@ function Bid() {
 
   return (
     <Wrapper>
-      <MainImage src={product.main_image} />
+      {/* <MainImage src={product.main_image} /> */}
+      <MainImage />
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>

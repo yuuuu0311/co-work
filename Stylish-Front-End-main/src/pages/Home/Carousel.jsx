@@ -95,17 +95,23 @@ const Dot = styled.div`
 `;
 
 const BidBanner = styled.a`
+  letter-spacing: 4px;
   cursor: pointer;
   position: absolute;
   z-index: 10;
   width: 100%;
   height: 40px;
-  background-color: #f47d91;
+  background-color: #df5d35;
+  box-shadow: 0px 4px 7px #444;
   font-size: 24px;
   color: #fff;
-  padding-left: 20px;
+  padding-left: 40px;
   line-height: 40px;
   border-radius: 0px 0px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 `;
 
 function Carousel() {
@@ -129,7 +135,8 @@ function Carousel() {
   return (
     <Wrapper>
       <BidBanner href="/bid">
-        <p>限時特賣中！</p>
+        <p>限時搶購倒數</p>
+        <p>24:00:00</p>
       </BidBanner>
       {campaigns.map(({ picture, product_id, story }, index) => (
         <Campaign

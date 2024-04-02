@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
 
     @media screen and (max-width: 1279px) {
-      padding: 150px 0 208px;
+      padding: 100px 0 208px;
     }
   }
 `;

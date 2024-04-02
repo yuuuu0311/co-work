@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import { db } from "../../utils/firestore";
+import { onSnapshot, collection } from "firebase/firestore";
 
 const WarpBidders = styled.div`
   margin: 60px 0;
@@ -125,9 +128,9 @@ const BiddersRecordTitle = styled.div`
 `;
 
 const BiddersRecordItems = styled.div`
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: 60px 1fr 200px;
+  justify-content: space-around;
   align-items: center;
   font-size: 26px;
   border: 1px solid #ccc;
@@ -150,46 +153,39 @@ const BiddersRecordItems = styled.div`
   }
 `;
 
-const Bidders = ({ product }) => {
+const Bidders = ({ product, quantity, storeQuantity, bidUsers }) => {
   return (
     <>
       <WarpBidders>
         <BiddersItems>
-          <BiddersCountDown>限時搶購倒數 24:00:00</BiddersCountDown>
+          <BiddersCountDown>限時搶購倒數</BiddersCountDown>
           <BiddersItemDetail>
             <h1>起標價</h1>
-            <p>TWD. {product.price}</p>
+            <p>TWD. 1000</p>
           </BiddersItemDetail>
           <hr />
           <BiddersItemDetail>
             <h1>最高競標價</h1>
-            <p>TWD. {product.price}</p>
+            <p>TWD. {storeQuantity}</p>
           </BiddersItemDetail>
           <hr />
           <BiddersItemDetail>
             <h1>競標人數</h1>
-            <p>5人</p>
+            <p>{bidUsers.length}人</p>
           </BiddersItemDetail>
         </BiddersItems>
       </WarpBidders>
       <WarpBidders>
         <BiddersRecord>
           <BiddersRecordTitle>競標紀錄</BiddersRecordTitle>
-          <BiddersRecordItems>
-            <div></div>
-            <h1>使用者1</h1>
-            <p>TWD. {product.price}</p>
-          </BiddersRecordItems>
-          <BiddersRecordItems>
-            <div></div>
-            <h1>使用者2</h1>
-            <p>TWD. {product.price}</p>
-          </BiddersRecordItems>
-          <BiddersRecordItems>
-            <div></div>
-            <h1>使用者3</h1>
-            <p>TWD. {product.price}</p>
-          </BiddersRecordItems>
+          {bidUsers?.map((bidUser, index) => {
+            return (
+              <BiddersRecordItems key={index}>
+                <h1>{bidUser.name}</h1>
+                <p>TWD. {bidUser.price}</p>
+              </BiddersRecordItems>
+            );
+          })}
         </BiddersRecord>
       </WarpBidders>
     </>

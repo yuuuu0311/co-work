@@ -37,7 +37,7 @@ const ProductCommentWarp = styled.div`
 
 const ProductComment = styled.div`
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   gap: 14px;
 

@@ -81,8 +81,6 @@ function Product({ product }) {
     setPostRes(data);
   }
 
-  console.log(postRes);
-
   return (
     <ProductWrap key={product.id}>
       <ProductImg>

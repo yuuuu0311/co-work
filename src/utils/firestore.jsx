@@ -7,12 +7,12 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD9Ddqor8cqHyxUHYtdsChuax7ibBzCnHg",
-  authDomain: "co-work-d9ba7.firebaseapp.com",
-  projectId: "co-work-d9ba7",
-  storageBucket: "co-work-d9ba7.appspot.com",
-  messagingSenderId: "590381400399",
-  appId: "1:590381400399:web:d2bae3ca2bd9a98e6bc53a",
+  apiKey: "AIzaSyCQEqeuvRW2OEUTWFDsjYGjYOOTOVUK9Tw",
+  authDomain: "coworkgroup1.firebaseapp.com",
+  projectId: "coworkgroup1",
+  storageBucket: "coworkgroup1.appspot.com",
+  messagingSenderId: "260456759499",
+  appId: "1:260456759499:web:88b820bbc00306230a1b4e",
 };
 
 // Initialize Firebase

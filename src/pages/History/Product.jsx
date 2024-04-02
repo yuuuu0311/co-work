@@ -68,7 +68,7 @@ function Product({ product }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        user_id: 10273,
+        user_id: 10274,
         product_id: product.id,
         star: starIndex + 1,
       }),

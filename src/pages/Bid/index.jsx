@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import api from "../../utils/api";
 import ProductBidBox from "./ProductBidBox";
 import Bidders from "./Bidders";
 import { db } from "../../utils/firestore";
 import image from "./image.png";
 import detailImage1 from "./0.png";
 import detailImage2 from "./1.png";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const Wrapper = styled.div`
   max-width: 960px;
@@ -240,37 +239,60 @@ const markData = {
 };
 
 function Bid() {
-  //   const [product, setProduct] = useState();
-  //   const { id } = useParams();
   const product = markData;
 
-  //   useEffect(() => {
-  //     async function getProduct() {
-  //       const { data } = await api.getProduct(id);
-  //       setProduct(data);
-  //     }
-  //     getProduct();
-  //   }, [id]);
+  const [quantity, setQuantity] = useState(0);
+  const [storeQuantity, setStoreQuantity] = useState(0);
+  const [bidUsers, setBidUsers] = useState([]);
 
-  //   if (!product) return null;
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "bids"), (querySnapshot) => {
+      let storeUsers = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        storeUsers.push(data);
+      });
+      storeUsers.sort((a, b) => b.time - a.time);
+      setBidUsers(storeUsers);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [db]);
+
+  useEffect(() => {
+    if (bidUsers.length > 0) {
+      setStoreQuantity(bidUsers[0].price);
+      setQuantity(bidUsers[0].price);
+    }
+  }, [bidUsers]);
 
   return (
     <Wrapper>
-      {/* <MainImage src={product.main_image} /> */}
       <MainImage />
       <Details>
         <Title>{product.title}</Title>
         <ID>{product.id}</ID>
         <Note>{product.note}</Note>
         <Texture>重量 / 5克拉</Texture>
-        {/* <Description>{product.description}</Description> */}
         <Place>素材產地 / 阿爾卑斯山</Place>
         <Place>加工產地 / 瑞士</Place>
         <BidTitle>參與競標</BidTitle>
-        <ProductBidBox product={product} />
+        <ProductBidBox
+          product={product}
+          quantity={quantity}
+          storeQuantity={storeQuantity}
+          setQuantity={setQuantity}
+        />
       </Details>
       <Story>
-        <Bidders product={product} />
+        <Bidders
+          product={product}
+          quantity={quantity}
+          storeQuantity={storeQuantity}
+          bidUsers={bidUsers}
+        />
         <StoryTitle>細部說明</StoryTitle>
         <StoryContent>{product.story}</StoryContent>
       </Story>

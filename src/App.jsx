@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 
   #root {
     min-height: 100vh;
-    padding: 150px 0 115px;
+    padding: 120px 0 115px;
     position: relative;
 
     @media screen and (max-width: 1279px) {
@@ -31,19 +31,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-    return (
-        <>
-            <Reset />
-            <GlobalStyle />
-            <AuthContextProvider>
-                <CartContextProvider>
-                    <Header />
-                    <Outlet />
-                    <Footer />
-                </CartContextProvider>
-            </AuthContextProvider>
-        </>
-    );
+  return (
+    <>
+      <Reset />
+      <GlobalStyle />
+      <AuthContextProvider>
+        <CartContextProvider>
+          <Header />
+          <Outlet />
+          <Footer />
+        </CartContextProvider>
+      </AuthContextProvider>
+    </>
+  );
 }
 
 export default App;

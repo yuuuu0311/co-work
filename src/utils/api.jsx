@@ -87,11 +87,11 @@ const api = {
             headers: headers,
 
             body: JSON.stringify({
-                user_id: "111",
+                user_id: "123",
                 weight,
                 height,
-                shape,
-                product_id: "201902192273",
+                shape: "0",
+                product_id: "201902191967",
             }),
         });
         return await response.json();

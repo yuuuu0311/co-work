@@ -1,6 +1,12 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { CartContext } from "../../context/cartContext";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../utils/firestore";
 
 const Option = styled.div`
   display: flex;
@@ -62,34 +68,22 @@ const AddToBid = styled.button`
   }
 `;
 
-function ProductBidBox({ product }) {
-  const [selectedColorCode, setSelectedColorCode] = useState();
-  const [selectedSize, setSelectedSize] = useState();
-  const [quantity, setQuantity] = useState(0);
-  const { cartItems, setCartItems } = useContext(CartContext);
-
-  function getStock(colorCode, size) {
-    if (!colorCode || !size) return 0;
-    const qty =
-      cartItems.find(
-        (item) =>
-          item.id === product.id &&
-          item.color.code === colorCode &&
-          item.size === size
-      )?.qty || 0;
-    return (
-      product.variants.find(
-        (variant) => variant.color_code === colorCode && variant.size === size
-      ).stock - qty
-    );
-  }
-
-  async function handleComment(e) {
+function ProductBidBox({ product, quantity, storeQuantity, setQuantity }) {
+  async function handlebid(e) {
     e.preventDefault();
 
-    const response = await fetch("https://smillzy.net/api/1.0/products/women");
-    const data = await response.json();
-    setPostRes(data);
+    try {
+      const docRef = await addDoc(collection(db, "bids"), {
+        name: "Melody",
+        price: quantity,
+        product_id: product.id,
+        time: serverTimestamp(),
+        user_id: 9930716,
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
   return (
@@ -98,7 +92,7 @@ function ProductBidBox({ product }) {
         <QuantitySelector>
           <MathButton
             onClick={() => {
-              setQuantity(quantity - 100);
+              if (quantity - 100 >= storeQuantity) setQuantity(quantity - 100);
             }}
           >
             -
@@ -113,7 +107,7 @@ function ProductBidBox({ product }) {
           </MathButton>
         </QuantitySelector>
       </Option>
-      <AddToBid onClick={handleComment}>送出競標價格</AddToBid>
+      <AddToBid onClick={handlebid}>送出競標價格</AddToBid>
     </>
   );
 }

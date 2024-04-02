@@ -52,7 +52,7 @@ const Size = styled.div`
   height: 34px;
   background-color: ${(props) => (props.$isSelected ? "black" : "#ececec")};
   color: ${(props) => (props.$isSelected ? "white" : "#3f3a3a")};
-  border-radius: 6px;
+  border-radius: 2px;
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -73,18 +73,21 @@ const AISize = styled.div`
 
   background-color: #333;
   color: white;
-  border-radius: 6px;
+  border-radius: 2px;
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 96px;
-  /* margin-left: auto; */
   cursor: ${(props) => (props.$isDisabled ? " not-allowed" : "pointer")};
   ${(props) => props.$isDisabled && "opacity: 0.25;"}
 
   & + & {
     margin-left: 20px;
+  }
+
+  @media screen and (max-width: 1279px) {
+    margin-left: 72px;
   }
 `;
 
